@@ -1,0 +1,12 @@
+services:
+  client:
+    container_name: quick-form-client
+    image: quick-form-client
+    build: 
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    # networks:
+    #   - quick-form-network
