@@ -16,61 +16,45 @@ export class ApiError extends Error {
 }
 
 export class BadRequestError extends ApiError {
-  constructor(options?: { message: string; details?: any }) {
-    super(
-      options?.message || "Bad Request",
-      StatusCodes.BAD_REQUEST,
-      options?.details
-    );
+  constructor(message?: string, details?: any) {
+    super(message || "Bad Request", StatusCodes.BAD_REQUEST, details);
   }
 }
 
 export class ForbiddenError extends ApiError {
-  constructor(options?: { message: string; details?: any }) {
-    super(
-      options?.message || "Forbidden",
-      StatusCodes.FORBIDDEN,
-      options?.details
-    );
+  constructor(message?: string, details?: any) {
+    super(message || "Forbidden", StatusCodes.FORBIDDEN, details);
   }
 }
 
 export class NotAuthorizedError extends ApiError {
-  constructor(options?: { message: string; details?: any }) {
-    super(
-      options?.message || "Not Authorized",
-      StatusCodes.UNAUTHORIZED,
-      options?.details
-    );
+  constructor(message?: string, details?: any) {
+    super(message || "Not Authorized", StatusCodes.UNAUTHORIZED, details);
   }
 }
 
 export class NotFoundError extends ApiError {
-  constructor(options?: { message: string; details?: any }) {
-    super(
-      options?.message || "Not Found",
-      StatusCodes.NOT_FOUND,
-      options?.details
-    );
+  constructor(message?: string, details?: any) {
+    super(message || "Not Found", StatusCodes.NOT_FOUND, details);
   }
 }
 
 export class InternalServerError extends ApiError {
-  constructor(options?: { message: string; details?: any }) {
+  constructor(message?: string, details?: any) {
     super(
-      options?.message || "Internal Server Error",
+      message || "Internal Server Error",
       StatusCodes.INTERNAL_SERVER_ERROR,
-      options?.details
+      details
     );
   }
 }
 
 export class UnprocessableEntityError extends ApiError {
-  constructor(options?: { message: string; details?: any }) {
+  constructor(message?: string, details?: any) {
     super(
-      options?.message || "Unprocessable Entity",
+      message || "Unprocessable Entity",
       StatusCodes.UNPROCESSABLE_ENTITY,
-      options?.details
+      details
     );
   }
 }
