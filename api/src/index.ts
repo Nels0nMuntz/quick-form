@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import passport from "passport";
-import { errorHandler, routeNotFoundHandler } from "./shared/middlewares";
+import { errorHandler } from "./shared/middlewares";
 import { appRouter } from "./app.router";
 import { registerPassportStrategies } from "./shared";
 

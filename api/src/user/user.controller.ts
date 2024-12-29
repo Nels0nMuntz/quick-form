@@ -4,11 +4,7 @@ import { createUserDataMapper } from "./dataMappers/createUserDataMapper";
 import userService from "./user.service";
 import apiResponse from "../utils/apiResponse/apiResponse";
 
-export const signup = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const signup = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = createUserDataMapper(req.body);
     await userService.create(data);
@@ -21,14 +17,13 @@ export const signup = async (
   }
 };
 
-export const signin = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const signin = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = jwt.sign(
-      { id: req?.userData?.id },
+      { 
+        id: req?.user?.id,
+        email: req?.user?.email
+      },
       process.env.JWT_SECRET || "",
       { expiresIn: "15m" }
     );
@@ -42,7 +37,21 @@ export const signin = async (
   }
 };
 
+const getCurrent = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const user = await userService.getCurrent(req?.user?.email!);
+    apiResponse.sendSuccessResponse({
+      res,
+      status: 200,
+      data: user,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   signup,
   signin,
+  getCurrent,
 };
