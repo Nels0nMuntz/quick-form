@@ -2,9 +2,7 @@ import { db } from "../lib";
 import { CreateUserData } from "./types/createUserData";
 import { UserEntity } from "./types/userEntity";
 
-export const findByEmail = async (
-  email: string
-): Promise<UserEntity | null> => {
+export const findByEmail = async (email: string) => {
   return db.user.findUnique({
     where: {
       email,

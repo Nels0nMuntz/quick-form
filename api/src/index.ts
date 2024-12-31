@@ -3,6 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import passport from "passport";
+import cookieParser from "cookie-parser";
 import { errorHandler } from "./shared/middlewares";
 import { appRouter } from "./app.router";
 import { registerPassportStrategies } from "./shared";
@@ -14,6 +15,7 @@ dotenv.config({
 const app = express();
 app
   .use(express.json())
+  .use(cookieParser())
   .use(
     cors({
       origin: "*",

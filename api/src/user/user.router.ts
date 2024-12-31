@@ -15,6 +15,10 @@ userRouter.post(
   userController.signin
 );
 
+userRouter.get("/refresh", userController.refresh);
+
+userRouter.get("/signout", authenticateWith(authStrategies.jwt), userController.signout);
+
 userRouter.get(
   "/",
   authenticateWith(authStrategies.jwt),
