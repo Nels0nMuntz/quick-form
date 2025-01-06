@@ -1,9 +1,9 @@
 "use server"
 import { cookies } from "next/headers";
 import { appConfig } from "@/app-root/configs";
-import { API_URLS } from "./urls";
+import { API_ENDPOINTS } from "./urls";
 
-type RequestUrl = keyof typeof API_URLS;
+type RequestUrl = keyof typeof API_ENDPOINTS;
 
 interface ServerFetchResponse<Data> {
   ok: boolean;
@@ -23,7 +23,7 @@ const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
     try {
       const requestCookies = await cookies();
-      const response = await fetch(`${appConfig}${API_URLS[url]}`, {
+      const response = await fetch(`${appConfig}${API_ENDPOINTS[url]}`, {
         method: method,
         headers: {
           "Content-Type": "application/json",
