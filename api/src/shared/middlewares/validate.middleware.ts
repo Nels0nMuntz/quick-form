@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { z, ZodError } from "zod";
-import { BadRequestError, InternalServerError } from "../../utils";
+import { InternalServerError, UnprocessableEntityError } from "../../utils";
 
 export function validate(schema: z.ZodObject<any, any>) {
   return (req: Request, res: Response, next: NextFunction) => {
@@ -13,7 +13,7 @@ export function validate(schema: z.ZodObject<any, any>) {
           path: issue.path.join("."),
           message: issue.message,
         }));
-        next(new BadRequestError("Invalid data", errorMessages));
+        next(new UnprocessableEntityError("Invalid data", errorMessages));
       } else {
         next(new InternalServerError());
       }

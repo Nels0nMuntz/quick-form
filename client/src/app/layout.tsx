@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { Toaster } from "@/shared/ui/shadcn-ui/toaster";
+
 import "./globals.css";
 
 const inter = Inter({
@@ -24,6 +26,7 @@ export default function RootLayout({
         className={`${inter.variable} antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );

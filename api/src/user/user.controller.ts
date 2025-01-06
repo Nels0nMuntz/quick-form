@@ -32,15 +32,18 @@ const signin = async (req: Request, res: Response, next: NextFunction) => {
     res.cookie("jwt_refresh", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), // 7 days
     });
     apiResponse.sendSuccessResponse({
       res,
       status: 200,
       data: {
-        id: user.id,
-        email: user.email,
-        fullName: user.fullName,
-      }
+        user: {
+          id: user.id,
+          email: user.email,
+          fullName: user.fullName,
+        },
+      },
     });
   } catch (error) {
     next(error);
@@ -51,7 +54,6 @@ const signout = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies.jwt_refresh;
     await tokenService.remove(token);
-    res.clearCookie("jwt_access");
     res.clearCookie("jwt_refresh");
     apiResponse.sendSuccessResponse({
       res,

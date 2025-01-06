@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Button as BaseButton } from "../shadcn-ui/button";
-import { cn } from "@/shared/lib/utils";
+import { cn } from "@/shared/lib/cn";
+import { Loader2 } from "lucide-react";
 
 const buttonVariants = cva("w-full h-auto", {
   variants: {
@@ -31,14 +32,24 @@ interface Props
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
+  loading?: boolean;
 }
 
-export function Button({ variant, className, children, asChild }: Props) {
+export function Button({
+  variant,
+  className,
+  children,
+  asChild,
+  disabled,
+  loading,
+}: Props) {
   return (
     <BaseButton
       className={cn(buttonVariants({ variant }), className)}
       asChild={asChild}
+      disabled={disabled || loading}
     >
+      {loading ? <Loader2 className="animate-spin" /> : null}
       {children}
     </BaseButton>
   );

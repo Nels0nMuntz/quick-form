@@ -18,9 +18,9 @@ app
   .use(cookieParser())
   .use(
     cors({
-      origin: "*",
-      // credentials: true,
-      // origin: process.env.WEB_APP_URL,
+      // origin: "*",
+      credentials: true,
+      origin: process.env.WEB_APP_URL,
     })
   )
   .use(passport.initialize())

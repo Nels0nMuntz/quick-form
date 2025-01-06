@@ -21,7 +21,7 @@ export const ICONS = {
         rx="48"
         fill="#03111B"
         stroke="#007AD3"
-        stroke-width="24"
+        strokeWidth="24"
       />
       <rect x="76" y="76" width="360" height="92" rx="46" fill="#F1C40F" />
       <rect x="76" y="210" width="220" height="92" rx="46" fill="#E74C3C" />

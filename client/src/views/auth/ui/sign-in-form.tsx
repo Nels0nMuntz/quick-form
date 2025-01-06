@@ -1,8 +1,11 @@
 "use client";
-
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { EyeIcon, EyeOff } from "lucide-react";
+
 import {
   signInFormSchema,
   SignInFormValues,
@@ -19,10 +22,14 @@ import {
   FormMessage,
   Input,
 } from "@/shared/ui";
-import { EyeIcon, EyeOff } from "lucide-react";
+import { toast } from "@/shared/hooks/use-toast/use-toast";
+import { clientFetch } from "@/shared/api";
 
 export function SignInForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
@@ -30,16 +37,43 @@ export function SignInForm() {
       password: "",
     },
   });
+  const redirectPath = searchParams?.get("from") || "/home";
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-  const onSubmit = (values: SignInFormValues) => {
-    console.log(values);
+  const signin = async (values: SignInFormValues) => {
+    try {
+      setIsLoading(true);
+      const response = await clientFetch.post("signin", values);
+      if (response.ok) {
+        router.replace(redirectPath);
+        toast({
+          title: "Welcome back!",
+          description: "You have successfully signed in.",
+        });
+        return;
+      } else {
+        toast({
+          title: "Email or password is invalid",
+          variant: "destructive",
+        });
+        return;
+      }
+    } catch (error) {
+      console.log({ error });
+      toast({
+        title: "There was a problem",
+        description: "There was an error loggong in",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(signin)} className="space-y-6">
           <FormField
             control={form.control}
             name="email"
@@ -47,7 +81,15 @@ export function SignInForm() {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="john@mail.com" {...field} />
+                  <Input
+                    type="email"
+                    placeholder="john@mail.com"
+                    autoCapitalize="none"
+                    autoComplete="email"
+                    autoCorrect="off"
+                    disabled={isLoading}
+                    {...field}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -91,7 +133,11 @@ export function SignInForm() {
               </FormItem>
             )}
           />
-          <Button className="font-bold text-lg p-3" type="submit">
+          <Button
+            className="font-bold text-lg p-3"
+            type="submit"
+            loading={isLoading}
+          >
             Login
           </Button>
         </form>
