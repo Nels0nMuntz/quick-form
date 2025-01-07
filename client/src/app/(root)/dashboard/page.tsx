@@ -8,11 +8,11 @@ export const metadata: Metadata = {
   description: "",
 };
 
-export default async function Home() {
+export default async function Dashboard() {
   // const user = await getCurrentUser();
   return (
     <div>
-      <h1>Home</h1>
+      <h1>Dashboard</h1>
       <Link href="/profile">Profile</Link>
       {/* <p>Welcome, {user?.fullName}!</p> */}
       <UserInfo />

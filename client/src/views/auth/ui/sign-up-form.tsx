@@ -20,6 +20,7 @@ import {
   signUpFormSchema,
   SignUpFormValues,
 } from "../models/schemas/signup-form-schema";
+import { useSignup } from "../api/useSignup";
 
 export function SignUpForm() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -30,16 +31,15 @@ export function SignUpForm() {
       password: "",
     },
   });
+  const { submit, isLoading } = useSignup();
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-  const onSubmit = (values: SignUpFormValues) => {
-    console.log(values);
-  };
+  const signup = (values: SignUpFormValues) => submit(values);
   return (
     <div className="flex flex-col gap-y-6">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form onSubmit={form.handleSubmit(signup)} className="space-y-6">
           <FormField
             control={form.control}
             name="fullname"
@@ -99,7 +99,11 @@ export function SignUpForm() {
               </FormItem>
             )}
           />
-          <Button className="font-bold text-lg p-3" type="submit">
+          <Button
+            className="font-bold text-lg p-3"
+            type="submit"
+            loading={isLoading}
+          >
             Create Account
           </Button>
         </form>

@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { EyeIcon, EyeOff } from "lucide-react";
 
@@ -22,14 +20,10 @@ import {
   FormMessage,
   Input,
 } from "@/shared/ui";
-import { toast } from "@/shared/hooks/use-toast/use-toast";
-import { clientFetch } from "@/shared/api";
+import { useSignin } from "../api/useSignin";
 
 export function SignInForm() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [showPassword, setShowPassword] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
   const form = useForm<SignInFormValues>({
     resolver: zodResolver(signInFormSchema),
     defaultValues: {
@@ -37,39 +31,11 @@ export function SignInForm() {
       password: "",
     },
   });
-  const redirectPath = searchParams?.get("from") || "/home";
+  const { submit, isLoading } = useSignin();
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-  const signin = async (values: SignInFormValues) => {
-    try {
-      setIsLoading(true);
-      const response = await clientFetch.post("signin", values);
-      if (response.ok) {
-        router.replace(redirectPath);
-        toast({
-          title: "Welcome back!",
-          description: "You have successfully signed in.",
-        });
-        return;
-      } else {
-        toast({
-          title: "Email or password is invalid",
-          variant: "destructive",
-        });
-        return;
-      }
-    } catch (error) {
-      console.log({ error });
-      toast({
-        title: "There was a problem",
-        description: "There was an error loggong in",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const signin = (values: SignInFormValues) => submit(values);
   return (
     <>
       <Form {...form}>

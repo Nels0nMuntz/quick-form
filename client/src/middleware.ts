@@ -6,7 +6,6 @@ import {
 } from "./shared/lib";
 import { appConfig } from "./app-root/configs";
 
-const protectedRoutes = ["/home"];
 const publicRoutes = ["/sign-in", "/sign-up", "/"];
 
 export default async function middleware(req: NextRequest) {
@@ -23,7 +22,7 @@ export default async function middleware(req: NextRequest) {
     const isValidAccessToken = await validateAccessToken(accessToken);
 
     if (isValidAccessToken) {
-      return NextResponse.redirect(new URL("/home", req.nextUrl));
+      return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
     } else {
       return NextResponse.next();
     }

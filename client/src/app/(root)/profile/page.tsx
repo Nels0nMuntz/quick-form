@@ -5,7 +5,7 @@ export default function Profile() {
     <div>
       <h1>Profile</h1>
       <p>Welcome, user!</p>
-      <Link href="/home">Home</Link>
+      <Link href="/dashboard">Dashboard</Link>
     </div>
   );
 }

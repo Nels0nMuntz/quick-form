@@ -1,23 +1,19 @@
 "use server"
 import { cookies } from "next/headers";
 import { appConfig } from "@/app-root/configs";
-import { API_ENDPOINTS } from "./urls";
+import { API_ENDPOINTS } from "../constants/apiEndpoints";
+import { FetchResponse } from "../types/fetchResponse";
+import { ApiResponse } from "../types/apiResponse";
 
 type RequestUrl = keyof typeof API_ENDPOINTS;
-
-interface ServerFetchResponse<Data> {
-  ok: boolean;
-  status: number;
-  data: Data;
-}
 
 type HTTPMethod = "GET" | "POST";
 type HTTPClient = (
   method: HTTPMethod,
-) => <ResponseData = any>(
+) => <ResponseData = any, ErrorDetailes = any>(
   url: RequestUrl,
   options?: RequestInit,
-) => Promise<ServerFetchResponse<ResponseData>>;
+) => Promise<FetchResponse<ApiResponse<ResponseData, ErrorDetailes>>>;
 
 const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
