@@ -3,7 +3,7 @@ import { z } from "zod";
 export type SignUpFormValues = z.infer<typeof signUpFormSchema>;
 
 export const signUpFormSchema = z.object({
-  fullname: z
+  fullName: z
     .string()
     .nonempty({ message: "Full name is required." })
     .min(2, { message: "Full name must be at least 2 characters long." })

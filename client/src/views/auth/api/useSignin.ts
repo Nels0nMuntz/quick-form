@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { SignInFormValues } from "../models";
 import { clientFetch } from "@/shared/api";

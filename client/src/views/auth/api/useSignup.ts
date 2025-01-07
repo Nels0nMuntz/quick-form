@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { SignUpFormValues } from "../models";
 import { clientFetch } from "@/shared/api";
 import { toast } from "@/shared/hooks";
@@ -23,6 +23,7 @@ export const useSignup = () => {
             .join(". "),
           variant: "destructive",
         });
+        return;
       }
     } catch (error) {
       console.log("Signup error", { error });

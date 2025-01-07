@@ -10,10 +10,10 @@ type RequestUrl = keyof typeof API_ENDPOINTS;
 type HTTPMethod = "GET" | "POST";
 type HTTPClient = (
   method: HTTPMethod,
-) => <ResponseData = any, ErrorDetailes = any>(
+) => <ResponseData = any, ErrorDetails = any>(
   url: RequestUrl,
   options?: RequestInit,
-) => Promise<FetchResponse<ApiResponse<ResponseData, ErrorDetailes>>>;
+) => Promise<FetchResponse<ApiResponse<ResponseData, ErrorDetails>>>;
 
 const httpClient: HTTPClient = (method) => {
   return async (url, options) => {

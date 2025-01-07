@@ -22,7 +22,7 @@ const sendErrorResponse = ({
 }) => {
   res
     .status(error.status || 500)
-    .json({ success: false, error: error.message, detailes: error.details });
+    .json({ success: false, error: error.message, details: error.details });
 };
 
 export default {
