@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Button as BaseButton } from "../shadcn-ui/button";
-import { cn } from "@/shared/lib/cn";
+import { cn } from "@/shared/lib/shadcn-utils";
 import { Loader2 } from "lucide-react";
 
 const buttonVariants = cva("w-full h-auto", {

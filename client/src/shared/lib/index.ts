@@ -1,4 +1,4 @@
-export { cn } from "./cn";
+export { cn } from "./shadcn-utils";
 
 export {
   BadRequestError,

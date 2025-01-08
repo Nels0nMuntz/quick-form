@@ -10,6 +10,7 @@ body {
   :root {
     --color-midnight: #03111b;
     --color-white: #ffffff;
+    --color-white-10: rgba(255, 255, 255, 0.1);
     --color-charcoal: #1e1e1e;
     --color-shadow: rgba(30, 30, 30, 0.4);
     --color-sky: rgb(0, 122, 211);
@@ -42,6 +43,14 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: var(--color-midnight);
+    --sidebar-foreground: var(--color-white);
+    --sidebar-primary: hsl(240 5.9% 10%);
+    --sidebar-primary-foreground: hsl(0 0% 98%);
+    --sidebar-accent: rgba(255, 255, 255, 0.1);
+    --sidebar-accent-foreground: var(--color-white);
+    --sidebar-border: hsl(220 13% 91%);
+    --sidebar-ring: hsl(217.2 91.2% 59.8%);
   }
   .dark {
     --color-midnight: #03111b;
@@ -76,6 +85,14 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: var(--color-midnight);
+    --sidebar-foreground: var(--color-white);
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 

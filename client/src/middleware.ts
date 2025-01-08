@@ -65,7 +65,7 @@ export default async function middleware(req: NextRequest) {
 
   const setCookiesHeaders = refreshResponse.headers.getSetCookie();
   const response = NextResponse.next();
-  setCookiesHeaders.forEach(cookie => response.headers.set("Set-Cookie", cookie)) 
+  setCookiesHeaders.forEach(cookie => response.headers.append("Set-Cookie", cookie))
   return response;
 }
 
