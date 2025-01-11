@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { SignUpPage } from "@/views/auth";
+import { SignUpPage } from "@/views/sign-up";
 
 export const metadata: Metadata = {
   title: "Sign Up",

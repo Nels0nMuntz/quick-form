@@ -1,4 +1,4 @@
-import { SignUpForm } from "./sign-up-form";
+import { SignUpForm } from "@/features/session";
 
 export function SignUpPage() {
   return (

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 
-import { SignInPage } from "@/views/auth";
+import { SignInPage } from "@/views/sign-in";
 
 export const metadata: Metadata = {
   title: "Login",

@@ -1,4 +1,4 @@
-import { SignInForm } from "./sign-in-form";
+import { SignInForm } from "@/features/session";
 
 export function SignInPage() {
   return (
