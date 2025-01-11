@@ -1,21 +1,12 @@
+import { DashboardPage } from "@/views/dashboard";
 import { Metadata } from "next";
-import Link from "next/link";
-
-import { UserInfo } from "@/views/home";
 
 export const metadata: Metadata = {
-  title: "Home",
-  description: "",
+  title: "My Forms",
+  description:
+    "Manage and access all your forms in one place. View, edit, and organize your forms effortlessly with our intuitive web app.",
 };
 
 export default async function Dashboard() {
-  // const user = await getCurrentUser();
-  return (
-    <div>
-      <h1>Dashboard</h1>
-      <Link href="/profile">Profile</Link>
-      {/* <p>Welcome, {user?.fullName}!</p> */}
-      <UserInfo />
-    </div>
-  );
+  return <DashboardPage />;
 }

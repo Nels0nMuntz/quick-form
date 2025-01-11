@@ -1,22 +1,48 @@
-import { appConfig } from "@/app-root/configs";
+import { appConfig } from "@/app-root/lib";
 import { API_ENDPOINTS } from "../constants/apiEndpoints";
 import { ApiResponse } from "../types/apiResponse";
 import { FetchResponse } from "../types/fetchResponse";
 
 type RequestUrl = keyof typeof API_ENDPOINTS;
+type RequestParams = Record<string, any>;
+type RequestOptions = RequestInit & { params?: RequestParams };
 
 type HTTPMethod = "GET" | "POST";
 type HTTPClient = (
   method: HTTPMethod,
 ) => <ResponseData = any, ErrorDetails = any>(
   url: RequestUrl,
-  options?: RequestInit,
+  options?: RequestOptions,
 ) => Promise<FetchResponse<ApiResponse<ResponseData, ErrorDetails>>>;
+
+const objectToQueryParams = (obj: RequestParams) => {
+  return Object.entries(obj)
+    .map(([key, value]) => {
+      if (value === undefined || value === null) {
+        return "";
+      }
+
+      if (Array.isArray(value)) {
+        return value
+          .map(
+            (item) => `${encodeURIComponent(key)}=${encodeURIComponent(item)}`,
+          )
+          .join("&");
+      }
+
+      return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+    })
+    .filter(Boolean) 
+    .join("&");
+};
 
 const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
+    const queryParams = options?.params
+      ? `?${objectToQueryParams(options.params)}`
+      : "";
     const originalRequest = new Request(
-      `${appConfig.apiUrl}${API_ENDPOINTS[url]}`,
+      `${appConfig.apiUrl}${API_ENDPOINTS[url]}${queryParams}`,
       {
         method: method,
         credentials: "include",
@@ -75,7 +101,7 @@ const httpClient: HTTPClient = (method) => {
 
 const get = httpClient("GET");
 
-const post = (url: RequestUrl, body: any, options?: RequestInit) => {
+const post = (url: RequestUrl, body: any, options?: RequestOptions) => {
   return httpClient("POST")(url, {
     body: JSON.stringify(body),
     ...options,

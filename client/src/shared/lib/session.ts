@@ -1,8 +1,8 @@
 "server-only";
 import { jwtVerify } from "jose";
 import { NextRequest, NextResponse } from "next/server";
-import { appConfig } from "@/app-root/configs";
-import { TokenPayload } from "../models";
+import { appConfig } from "@/app-root/lib";
+import { TokenPayload } from "@/shared/api";
 
 async function decrypt(token: string, secret: string) {
   try {

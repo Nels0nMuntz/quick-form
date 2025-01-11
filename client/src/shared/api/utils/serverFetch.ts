@@ -1,6 +1,6 @@
 "use server"
 import { cookies } from "next/headers";
-import { appConfig } from "@/app-root/configs";
+import { appConfig } from "@/app-root/lib";
 import { API_ENDPOINTS } from "../constants/apiEndpoints";
 import { FetchResponse } from "../types/fetchResponse";
 import { ApiResponse } from "../types/apiResponse";

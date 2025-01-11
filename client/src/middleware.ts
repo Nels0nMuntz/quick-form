@@ -4,7 +4,7 @@ import {
   validateAccessToken,
   validateRefreshToken,
 } from "./shared/lib";
-import { appConfig } from "./app-root/configs";
+import { appConfig } from "./app-root/lib";
 
 const publicRoutes = ["/sign-in", "/sign-up", "/"];
 

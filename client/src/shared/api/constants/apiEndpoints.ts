@@ -3,4 +3,5 @@ export const API_ENDPOINTS = {
   signin: "/user/signin",
   refresh: "/user/refresh",
   currentUser: "/user",
+  forms: "/forms",
 } as const;
