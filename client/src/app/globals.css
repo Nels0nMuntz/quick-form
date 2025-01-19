@@ -3,19 +3,21 @@
 @tailwind utilities;
 
 body {
-  @apply text-base font-inter font-normal text-charcoal antialiased;
+  @apply font-inter font-normal text-lg text-charcoal antialiased;
 }
 
 @layer base {
   :root {
     --color-midnight: #03111b;
+    --color-midnight-20: rgba(3, 17, 27, 0.2);
+    --color-midnight-40: rgba(3, 17, 27, 0.4);
     --color-white: #ffffff;
     --color-white-10: rgba(255, 255, 255, 0.1);
     --color-charcoal: #1e1e1e;
     --color-shadow: rgba(30, 30, 30, 0.4);
+    --color-blue-light: rgba(227, 237, 252, 0.5);
     --color-sky: rgb(0, 122, 211);
     --color-sky-85: rgba(0, 122, 211, 0.85);
-    --color-midnight-40: rgba(3, 17, 27, 0.4);
     --color-mint: #1fdb81;
     
     --background: 0 0% 100%;
@@ -103,4 +105,11 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.tiptap.ProseMirror {
+  @apply border-b-2 border-transparent transition-colors duration-150;
+}
+.tiptap.ProseMirror.ProseMirror-focused {
+  @apply outline-none border-midnight;
 }

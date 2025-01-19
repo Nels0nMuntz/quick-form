@@ -12,10 +12,12 @@ export default {
       colors: {
         midnight: "var(--color-midnight)",
         "midnight/40": "var(--color-midnight-40)",
+        "midnight/20": "var(--color-midnight-20)",
         white: "var(--color-white)",
         "white-10": "var(--color-white-10)",
         charcoal: "var(--color-charcoal)",
         shadow: "var(--color-shadow)",
+        "blue-light": "var(--color-blue-light)",
         sky: "var(--color-sky)",
         "sky/85": "var(--color-sky-85)",
         mint: "var(--color-mint)",

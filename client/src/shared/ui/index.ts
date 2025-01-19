@@ -10,5 +10,6 @@ export { Button as BaseButton } from "./shadcn-ui/button";
 
 export { Icon } from "./icon/icon";
 export { Button } from "./button/button";
+export { Container } from "./container/container";
 export { AppSidebar } from "./app-sidebar/app-sidebar";
 export { PageTitle } from "./page-title/page-title";

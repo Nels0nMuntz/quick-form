@@ -13,15 +13,15 @@ const buttonVariants = cva("w-full h-auto", {
         "border border-sky bg-background shadow-sm text-sky hover:bg-accent hover:text-sky",
       // secondary:
       //   "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-      // ghost: "hover:bg-accent hover:text-accent-foreground",
+      ghost: "hover:bg-accent text-midnight hover:text-midnight shadow-none bg-transparent",
       // link: "text-primary underline-offset-4 hover:underline",
     },
-    //   size: {
-    //     default: "h-9 px-4 py-2",
-    //     sm: "h-8 rounded-md px-3 text-xs",
-    //     lg: "h-10 rounded-md px-8",
-    //     icon: "h-9 w-9",
-    //   },
+    size: {
+      default: "h-9 px-4 py-2",
+      sm: "h-8 rounded-md px-3 text-xs",
+      lg: "h-10 rounded-md px-8",
+      icon: "h-9 w-9",
+    },
   },
   defaultVariants: {
     variant: "default",
@@ -33,6 +33,7 @@ interface Props
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   loading?: boolean;
+  size?: "default" | "sm" | "lg" | "icon";
 }
 
 export function Button({
@@ -42,15 +43,19 @@ export function Button({
   asChild,
   disabled,
   loading,
+  size,
 }: Props) {
   return (
     <BaseButton
-      className={cn(buttonVariants({ variant }), className)}
+      className={cn(buttonVariants({ variant, size }), className)}
       asChild={asChild}
       disabled={disabled || loading}
+      size={size}
     >
-      {loading ? <Loader2 className="animate-spin" /> : null}
-      {children}
+      <>
+        {loading ? <Loader2 className="animate-spin" /> : null}
+        {children}
+      </>
     </BaseButton>
   );
 }
