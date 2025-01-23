@@ -1,5 +1,5 @@
-import { cn } from "@/shared/lib";
 import { PropsWithChildren } from "react";
+import { cn } from "@/shared/lib";
 
 interface Props extends PropsWithChildren {
   active?: boolean;

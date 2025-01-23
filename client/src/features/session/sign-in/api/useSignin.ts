@@ -1,7 +1,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { clientFetch } from "@/shared/api";
-import { toast } from "@/shared/hooks";
+import { toast } from "@/shared/lib";
 import { SignInFormValues } from "../models/schemas/signin-form-schema";
 
 export const useSignin = () => {

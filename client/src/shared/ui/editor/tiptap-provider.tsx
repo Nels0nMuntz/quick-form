@@ -10,10 +10,7 @@ import {
   useState,
 } from "react";
 import { EditorContent, type Editor } from "@tiptap/react";
-import useTiptapEditor, {
-  type UseTiptapEditorOptions,
-} from "../lib/hooks/useTipTapEditor";
-import clsx from "clsx";
+import useTiptapEditor, { UseTiptapEditorOptions } from "../../lib/hooks/useTipTapEditor";
 
 type TiptapContextType = {
   editor: Editor;
@@ -72,7 +69,6 @@ export const TiptapProvider = ({
         <EditorContent
           ref={contentElement}
           editor={editor}
-          className="rte-editor__content"
         />
       </div>
       {children}

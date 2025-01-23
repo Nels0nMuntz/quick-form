@@ -7,6 +7,7 @@ import { Underline } from "./controls/underline";
 import { ToolbarDivider } from "./toolbar-divider";
 import { Link } from "./controls/link";
 import { cn } from "@/shared/lib";
+import { Reset } from "./controls/reset";
 
 interface Props {
   visible: boolean;
@@ -29,6 +30,7 @@ export function Toolbar({ visible }: Props) {
         <Bold />
         <Italic />
         <Underline />
+        <Reset />
 
         <ToolbarDivider />
 

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { SignUpFormValues } from "../models";
 import { clientFetch } from "@/shared/api";
-import { toast } from "@/shared/hooks";
+import { toast } from "@/shared/lib";
+import { SignUpFormValues } from "../models/schemas/signup-form-schema";
 
 export const useSignup = () => {
   const router = useRouter();

@@ -13,3 +13,5 @@ export { Button } from "./button/button";
 export { Container } from "./container/container";
 export { AppSidebar } from "./app-sidebar/app-sidebar";
 export { PageTitle } from "./page-title/page-title";
+export { Paper } from "./paper/paper";
+export { EditField } from "./editor/edit-field";

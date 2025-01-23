@@ -108,7 +108,7 @@ body {
 }
 
 .tiptap.ProseMirror {
-  @apply border-b-2 border-transparent transition-colors duration-150;
+  @apply border-b border-transparent transition-colors duration-150;
 }
 .tiptap.ProseMirror.ProseMirror-focused {
   @apply outline-none border-midnight;

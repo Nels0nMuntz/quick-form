@@ -1,12 +1,14 @@
 "use client";
 
-
 import { Eye, Link2, UserPlus } from "lucide-react";
-import { PublishFormButton } from "@/features/forms";
-import { Button, Container, PageTitle } from "@/shared/ui";
 import { Header } from "@/widgets/header";
-import { Paper } from "./paper/paper";
-import { EditField } from "@/features/editor";
+import {
+  FormDescription,
+  FormTitle,
+  PublishFormButton,
+} from "@/features/forms";
+import { Button, Container, PageTitle, Paper } from "@/shared/ui";
+import { Questions } from "./questions";
 
 export function CreateFormPage() {
   return (
@@ -30,14 +32,16 @@ export function CreateFormPage() {
           </div>
         </Container>
       </div>
-      <div className="bg-blue-light flex-grow py-8">
+      <div className="flex-grow bg-blue-light py-8">
         <Container>
           <div className="flex flex-col gap-y-4">
-            <Paper top>Paper</Paper>
-            <Paper active>
-              <EditField type="heading"/>
+            <Paper top>
+              <div className="flex flex-col gap-y-2">
+                <FormTitle />
+                <FormDescription />
+              </div>
             </Paper>
-            <Paper>Paper</Paper>
+            <Questions />
           </div>
         </Container>
       </div>

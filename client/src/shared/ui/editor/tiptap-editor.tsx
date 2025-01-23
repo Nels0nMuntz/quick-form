@@ -1,14 +1,15 @@
 "use client";
 
-import { throttle } from "@/shared/lib";
-import { Content, Editor } from "@tiptap/react";
+import { forwardRef, useCallback, useState } from "react";
+import { Content, Editor, Extension } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
-import { forwardRef, useCallback, useRef, useState } from "react";
-import { UseTiptapEditorOptions } from "../lib/hooks/useTipTapEditor";
+import { throttle } from "@/shared/lib";
 import TiptapProvider from "./tiptap-provider";
 import { Toolbar } from "./toolbar";
+import { UseTiptapEditorOptions } from "../../lib/hooks/useTipTapEditor";
+import { Heading, NoNewLine } from "../../config/editorExtensions";
 
 export type TiptapEditorRef = {
   getInstance: () => Editor | null;
@@ -35,6 +36,17 @@ interface Props {
   onContentChange?: (value: Content) => void;
 }
 
+
+
+const CustomBold = Heading.extend({
+  
+  renderHTML({ HTMLAttributes }) {
+    // Original:
+    // return ['strong', HTMLAttributes, 0]
+    return ['b', HTMLAttributes, 0]
+  },
+})
+
 export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
   function TiptapEditor(props, ref) {
     const {
@@ -51,6 +63,9 @@ export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
       contentMaxHeight,
       onContentChange,
     } = props;
+
+    console.log({initialContent});
+    
 
     const [focused, setFocused] = useState(false);
 
@@ -76,22 +91,22 @@ export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
     const editorOptions: UseTiptapEditorOptions = {
       ref,
       placeholder,
-      extensions: [StarterKit.configure({
-        paragraph: {
-          HTMLAttributes: {
-            class: "text-lg"
-          }
-        },
-        heading: {
-          HTMLAttributes: {
-            class: "text-3xl font-semibold"
+      extensions: [
+        StarterKit.configure({
+          paragraph: {
+            HTMLAttributes: {
+              class: "text-lg",
+            },
           },
-          levels: [1]
-        }
-      }), Underline, Link],
+        }),
+        Underline,
+        Link,
+        NoNewLine,
+        Heading,
+      ],
       content: initialContent,
       editable: isEditable,
-      immediatelyRender: !ssr,
+      immediatelyRender: false,
       shouldRerenderOnTransaction: false,
       autofocus: false,
       onUpdate: ({ editor }) => handleUpdate(editor),
@@ -103,7 +118,8 @@ export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
       <>
         <TiptapProvider
           editorOptions={editorOptions}
-          slotAfter={<Toolbar visible={true} />}
+          // slotAfter={<Toolbar visible={true} />}
+          slotAfter={<Toolbar visible={focused} />}
         />
       </>
     );
