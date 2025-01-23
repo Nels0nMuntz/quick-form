@@ -1,9 +1,9 @@
 import React, { memo } from "react";
 import { JSONContent } from "@tiptap/react";
 import { useFormQuestion, useFormActions } from "@/shared/model";
+import { EditField } from "@/shared/ui";
 import { QuestionLayout } from "./question-layout";
 import { FormQuestion, QuestionComponentProps } from "../model/types";
-import { EditField } from "@/shared/ui";
 
 export const ShortTextQuestion = memo(
   ({ id }: QuestionComponentProps) => {
