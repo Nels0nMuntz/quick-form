@@ -6,7 +6,7 @@ import { QuestionLayout } from "./question-layout";
 import { FormQuestion, QuestionComponentProps } from "../model/types";
 
 export const ShortTextQuestion = memo(
-  ({ id }: QuestionComponentProps) => {
+  ({ id, actions, dropdown }: QuestionComponentProps) => {
     const data = useFormQuestion(id) as FormQuestion<"Short text">;
     const { setQuestion } = useFormActions();
     const updateTitle = (json: JSONContent) => {
@@ -25,8 +25,8 @@ export const ShortTextQuestion = memo(
           />
         }
         body={<EditField initialValue={data.body} onChange={updateTitle} />}
-        actions={<div>actions</div>}
-        typePicker={<div>typePicker</div>}
+        actions={actions}
+        dropdown={dropdown}
       />
     );
   },

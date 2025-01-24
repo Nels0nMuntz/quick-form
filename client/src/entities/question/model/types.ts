@@ -35,4 +35,6 @@ type SelectBody = {
 
 export interface QuestionComponentProps {
   id: string;
+  actions: React.ReactNode;
+  dropdown: React.ReactNode;
 }

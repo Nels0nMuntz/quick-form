@@ -6,7 +6,7 @@ import {
   FormDescription,
   FormTitle,
   PublishFormButton,
-} from "@/features/forms";
+} from "@/features/form";
 import { Button, Container, PageTitle, Paper } from "@/shared/ui";
 import { Questions } from "./questions";
 
