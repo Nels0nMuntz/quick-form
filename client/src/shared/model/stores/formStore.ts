@@ -86,17 +86,29 @@ export const useFormStore = create<FormStore>()((set) => {
           };
         });
       },
-      copyQuestion: (id) => {
+      copyQuestion: (questionId) => {
         set((state) => {
           const newQuestion = {
-            ...state.questions[id],
+            ...state.questions[questionId],
             id: generateUniqueId(),
           };
+          const questions = Object.values(state.questions);
+          const index = questions.findIndex(({ id }) => id === questionId);
+          if (index < 0) return state;
+          const before = questions.slice(0, index);
+          const after = questions.slice(index + 1);
+          const all = before
+            .concat(questions[index])
+            .concat(newQuestion)
+            .concat(after);
           return {
-            questions: {
-              ...state.questions,
-              [newQuestion.id]: newQuestion,
-            },
+            questions: all.reduce(
+              (obj, question) => {
+                obj[question.id] = question;
+                return obj;
+              },
+              {} as Record<string, PartialFormQuestion>,
+            ),
           };
         });
       },
