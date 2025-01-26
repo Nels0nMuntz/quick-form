@@ -16,12 +16,16 @@ type EditFieldType = "paragraph" | "heading";
 interface Props {
   type?: EditFieldType;
   initialValue?: JSONContent;
+  oneLine?: boolean;
+  className?: string;
   onChange: (json: JSONContent) => void;
 }
 
 export function EditField({
   initialValue,
   type = "paragraph",
+  oneLine = false,
+  className,
   onChange,
 }: Props) {
   const editorRef = useRef<TiptapEditorRef>(null);
@@ -47,7 +51,7 @@ export function EditField({
 
   return (
     <Form {...form}>
-      <form>
+      <form className={className}>
         <FormField
           control={form.control}
           name="editField"
@@ -56,6 +60,7 @@ export function EditField({
               ref={editorRef}
               ssr={false}
               output="json"
+              oneLine={oneLine}
               onContentChange={onChange}
               initialContent={value}
             />

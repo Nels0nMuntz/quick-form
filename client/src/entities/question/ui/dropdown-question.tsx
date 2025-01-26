@@ -1,18 +1,15 @@
 import React, { memo } from "react";
-import {
-  useFormQuestion,
-  useFormActions,
-  EditorJSONContent,
-} from "@/shared/model";
+import { JSONContent } from "@tiptap/react";
+import { useFormQuestion, useFormActions } from "@/shared/model";
 import { EditField } from "@/shared/ui";
 import { QuestionLayout } from "./question-layout";
 import { FormQuestion, QuestionComponentProps } from "../model/types";
 
-export const ShortTextQuestion = memo(
+export const DropdownQuestion = memo(
   ({ id, actions, dropdown, body }: QuestionComponentProps) => {
-    const data = useFormQuestion(id) as FormQuestion<"Short text">;
+    const data = useFormQuestion(id) as FormQuestion<"Dropdown">;
     const { setQuestion } = useFormActions();
-    const updateTitle = (json: EditorJSONContent) => {
+    const updateTitle = (json: JSONContent) => {
       setQuestion({
         ...data,
         title: json,

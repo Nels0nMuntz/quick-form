@@ -33,6 +33,7 @@ interface Props {
   contentClass?: string;
   contentMinHeight?: string | number;
   contentMaxHeight?: string | number;
+  oneLine?: boolean;
   onContentChange?: (value: Content) => void;
 }
 
@@ -56,6 +57,7 @@ export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
       disabled = false,
       initialContent,
       placeholder,
+      oneLine,
       hideToolbar = true,
       hideStatusBar = false,
       hideBubbleMenu = true,
@@ -63,9 +65,6 @@ export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
       contentMaxHeight,
       onContentChange,
     } = props;
-
-    console.log({initialContent});
-    
 
     const [focused, setFocused] = useState(false);
 
@@ -98,11 +97,17 @@ export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
               class: "text-lg",
             },
           },
+          heading: {
+            levels: [1, 2, 3],
+            HTMLAttributes: {
+              
+            }
+          }
         }),
         Underline,
         Link,
-        NoNewLine,
-        Heading,
+        ...(oneLine ? [NoNewLine] : []),
+        // Heading,
       ],
       content: initialContent,
       editable: isEditable,

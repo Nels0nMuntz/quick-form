@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Header } from "@/widgets/header";
-import { SearchInput } from "@/features/forms";
+import { SearchInput } from "@/features/form";
 import { BaseButton, Container, Icon } from "@/shared/ui";
 
 export function DashboardPage() {

@@ -7,6 +7,7 @@ export * from "./shadcn-ui/sidebar";
 export * from "./shadcn-ui/skeleton";
 export * from "./shadcn-ui/tooltip";
 export * from "./shadcn-ui/switch";
+export * from "./shadcn-ui/dropdown-menu";
 export { Button as BaseButton } from "./shadcn-ui/button";
 
 export { Icon } from "./icon/icon";

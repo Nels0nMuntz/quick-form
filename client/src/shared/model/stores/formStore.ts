@@ -1,8 +1,13 @@
 import { create } from "zustand";
 import { useShallow } from "zustand/react/shallow";
 import { JSONContent } from "@tiptap/react";
-import { v4 as uuidv4 } from "uuid";
-import { PartialFormQuestion } from "@/entities/question";
+import { FormQuestionsTypes, PartialFormQuestion } from "@/entities/question";
+import {
+  createDefaultQuestion,
+  buildJsonContent,
+  generateUniqueId,
+} from "@/shared/lib";
+import { EditorJSONContent } from "../types/EditorJSONContent";
 
 interface FormState {
   title: JSONContent;
@@ -18,31 +23,38 @@ interface FormActions {
     copyQuestion: (id: string) => void;
     deleteQuestion: (id: string) => void;
     toggleRequired: (id: string) => void;
+    changeQuestionType: (id: string, value: FormQuestionsTypes) => void;
+    addOption: (id: string) => void;
+    updateOption: (
+      questionId: string,
+      optionId: string,
+      json: EditorJSONContent,
+    ) => void;
+    deleteOption: (questionId: string, optionId: string) => void;
   };
 }
 
 type FormStore = FormState & FormActions;
 
-export const useFormStore = create<FormStore>()((set, get) => {
-  const uniqueid = uuidv4();
+const DFAULT_FORM_TITLE_TEXT = "Title";
+const DFAULT_FORM_DESCRIPTION_TEXT = "Description";
+
+export const useFormStore = create<FormStore>()((set) => {
+  const defaultShortQuestion = createDefaultQuestion({
+    type: "Checkbox",
+  });
   return {
-    title: JSON.parse(
-      '{"type":"doc","content":[{"type":"heading","attrs":{"level":1},"content":[{"type":"text","text":"Title"}]}]}',
-    ),
-    description: JSON.parse(
-      '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Description"}]}]}',
-    ),
+    title: buildJsonContent({
+      type: "heading",
+      level: 1,
+      text: DFAULT_FORM_TITLE_TEXT,
+    }),
+    description: buildJsonContent({
+      type: "paragraph",
+      text: DFAULT_FORM_DESCRIPTION_TEXT,
+    }),
     questions: {
-      [uniqueid]: {
-        id: uniqueid,
-        type: "Short text",
-        title: JSON.parse(
-          '{"type":"doc","content":[{"type":"heading","attrs":{"level":2},"content":[{"type":"text","text":"Question 1"}]}]}',
-        ),
-        body: JSON.parse(
-          '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Short answer text"}]}]}',
-        ),
-      },
+      [defaultShortQuestion.id]: defaultShortQuestion,
     },
     actions: {
       setTitle: (json) => set({ title: json }),
@@ -58,7 +70,7 @@ export const useFormStore = create<FormStore>()((set, get) => {
         set((state) => {
           const newQuestion = {
             ...state.questions[id],
-            id: uuidv4(),
+            id: generateUniqueId(),
           };
           return {
             questions: {
@@ -88,6 +100,72 @@ export const useFormStore = create<FormStore>()((set, get) => {
             },
           },
         })),
+      changeQuestionType: (id, value) => {
+        set((state) => {
+          const questionToUpdate = state.questions[id];
+          const question = createDefaultQuestion({
+            type: value,
+            id: questionToUpdate.id,
+            title: questionToUpdate.title,
+          });
+          question.id = id;
+          return {
+            questions: {
+              ...state.questions,
+              [id]: question,
+            },
+          };
+        });
+      },
+      addOption: (id) =>
+        set((state) => ({
+          questions: {
+            ...state.questions,
+            [id]: {
+              ...state.questions[id],
+              options: [
+                ...(state.questions[id].options || []),
+                {
+                  id: generateUniqueId(),
+                  value: buildJsonContent({
+                    type: "paragraph",
+                    text: `Option ${(state.questions[id].options || []).length + 1}`,
+                  }),
+                },
+              ],
+            },
+          },
+        })),
+      updateOption: (questionId, optionId, json) => {
+        set((state) => ({
+          questions: {
+            ...state.questions,
+            [questionId]: {
+              ...state.questions[questionId],
+              options: [
+                ...(state.questions[questionId].options || []).map((option) =>
+                  option.id !== optionId ? { ...option, value: json } : option,
+                ),
+              ],
+            },
+          },
+        }));
+      },
+      deleteOption: (questionId, optionId) => {
+        set((state) => ({
+          questions: {
+            ...state.questions,
+            [questionId]: {
+              ...state.questions[questionId],
+              options: [
+                ...(state.questions[questionId].options || []).filter(
+                  ({ id }) => id !== optionId,
+                ),
+              ],
+            },
+          },
+        }));
+      },
     },
   };
 });

@@ -1,5 +1,8 @@
 export { sleep } from "./utils/sleep";
 export { throttle } from "./utils/trottle";
+export { createDefaultQuestion } from "./utils/createDefaultQuestion";
+export { buildJsonContent } from "./utils/buildJsonContent";
+export { generateUniqueId } from "./utils/generateUniqueId";
 export { cn } from "./shadcn-utils";
 
 export {
@@ -15,3 +18,6 @@ export {
 
 export { useIsMobile } from "./hooks/use-mobile";
 export { useToast, toast } from "./hooks/use-toast/use-toast";
+
+export { ICONS } from "./constants/icons/icons";
+export type { IconsProps } from "./constants/icons/types";
