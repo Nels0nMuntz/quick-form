@@ -4,3 +4,4 @@ export { RequiredQuestionToggle } from "./toggle-required-question/ui/required-q
 export { ChangeQuestionTypeDropdown } from "./change-question-type/ui/change-question-type-dropdown";
 export { AddCheckboxOption } from "./add-checkbox-option/ui/add-checkbox-option";
 export { DeleteOption } from "./delete-option/ui/delete-option";
+export { AddQuestion } from "./add-question/ui/add-question";

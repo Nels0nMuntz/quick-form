@@ -20,6 +20,7 @@ interface FormActions {
     setTitle: (json: JSONContent) => void;
     setDescription: (json: JSONContent) => void;
     setQuestion: (question: PartialFormQuestion) => void;
+    addQuestion: () => void;
     copyQuestion: (id: string) => void;
     deleteQuestion: (id: string) => void;
     toggleRequired: (id: string) => void;
@@ -40,7 +41,7 @@ const DFAULT_FORM_TITLE_TEXT = "Title";
 const DFAULT_FORM_DESCRIPTION_TEXT = "Description";
 
 export const useFormStore = create<FormStore>()((set) => {
-  const defaultShortQuestion = createDefaultQuestion({
+  const defaultQuestion = createDefaultQuestion({
     type: "Checkbox",
   });
   return {
@@ -54,7 +55,7 @@ export const useFormStore = create<FormStore>()((set) => {
       text: DFAULT_FORM_DESCRIPTION_TEXT,
     }),
     questions: {
-      [defaultShortQuestion.id]: defaultShortQuestion,
+      [defaultQuestion.id]: defaultQuestion,
     },
     actions: {
       setTitle: (json) => set({ title: json }),
@@ -66,6 +67,25 @@ export const useFormStore = create<FormStore>()((set) => {
             [question.id]: { ...question },
           },
         })),
+      addQuestion: () => {
+        set((state) => {
+          const defaultQuestion = createDefaultQuestion({
+            type: "Checkbox",
+          });
+          const title = buildJsonContent({
+            type: "heading",
+            level: 2,
+            text: `Question ${Object.keys(state.questions).length + 1}`,
+          });
+          defaultQuestion.title = title;
+          return {
+            questions: {
+              ...state.questions,
+              [defaultQuestion.id]: defaultQuestion,
+            },
+          };
+        });
+      },
       copyQuestion: (id) => {
         set((state) => {
           const newQuestion = {

@@ -2,13 +2,10 @@
 
 import { Eye, Link2, UserPlus } from "lucide-react";
 import { Header } from "@/widgets/header";
-import {
-  FormDescription,
-  FormTitle,
-  PublishFormButton,
-} from "@/features/form";
+import { FormDescription, FormTitle, PublishFormButton } from "@/features/form";
 import { Button, Container, PageTitle, Paper } from "@/shared/ui";
 import { Questions } from "./questions";
+import { AddQuestion } from "@/features/question";
 
 export function CreateFormPage() {
   return (
@@ -42,6 +39,7 @@ export function CreateFormPage() {
               </div>
             </Paper>
             <Questions />
+            <AddQuestion />
           </div>
         </Container>
       </div>
