@@ -7,7 +7,7 @@ export interface BaseFormQuestion<Type extends FormQuestionsTypes> {
   id: string;
   type: Type;
   title: JSONContent;
-  text: Type extends "Short text" | "Long text" ? JSONContent : never;
+  // text: Type extends "Short text" | "Long text" ? JSONContent : never;
   multiple: Type extends "Checkbox" | "Dropdown" ? boolean : never;
   options: Type extends "Checkbox" | "Dropdown" ? FormQuestionOption[] : never;
   required?: boolean;
@@ -15,7 +15,7 @@ export interface BaseFormQuestion<Type extends FormQuestionsTypes> {
 
 export type PartialFormQuestion = PartialByKeys<
   BaseFormQuestion<FormQuestionsTypes>,
-  "text" | "options" | "multiple"
+  "options" | "multiple"
 >;
 
 export type FormQuestion<Type extends FormQuestionsTypes> = OmitNever<

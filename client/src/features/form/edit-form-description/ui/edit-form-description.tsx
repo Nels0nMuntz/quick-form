@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { EditField } from "@/shared/ui";
 import { useFormActions, useFormDescription } from "@/shared/model";

@@ -1,3 +1,4 @@
+"use client";
 import { memo } from "react";
 import { Trash2 } from "lucide-react";
 import { BaseButton } from "@/shared/ui";

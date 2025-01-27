@@ -1,3 +1,4 @@
+"use client";
 import { useFormActions } from "@/shared/model";
 import { BaseButton } from "@/shared/ui";
 import { Plus } from "lucide-react";

@@ -1,5 +1,6 @@
+"use client";
 import { memo } from "react";
-import { X, Square } from "lucide-react";
+import { Square } from "lucide-react";
 import { EditField } from "@/shared/ui";
 import { FormQuestion } from "@/entities/question";
 import {
@@ -15,20 +16,12 @@ export interface QuestionBodyProps {
 
 export const ShortTextQuestionBody: React.FC<QuestionBodyProps> = memo(
   ({ questionId }) => {
-    const question = useFormQuestion(questionId) as FormQuestion<"Short text">;
-    const { setQuestion } = useFormActions();
-    const updateAnswer = (json: EditorJSONContent) => {
-      setQuestion({
-        ...question,
-        text: json,
-      });
-    };
     return (
       <div className="w-full max-w-[320px]">
-        <EditField
-          initialValue={question.text}
-          onChange={updateAnswer}
-          oneLine
+        <input
+          disabled
+          placeholder="Short answer text"
+          className="w-full border-b border-midnight/20 bg-transparent text-base"
         />
       </div>
     );
@@ -37,16 +30,12 @@ export const ShortTextQuestionBody: React.FC<QuestionBodyProps> = memo(
 
 export const LongTextQuestionBody: React.FC<QuestionBodyProps> = memo(
   ({ questionId }) => {
-    const question = useFormQuestion(questionId) as FormQuestion<"Long text">;
-    const { setQuestion } = useFormActions();
-    const updateAnswer = (json: EditorJSONContent) => {
-      setQuestion({
-        ...question,
-        text: json,
-      });
-    };
     return (
-      <EditField initialValue={question.text} onChange={updateAnswer} oneLine />
+      <input
+        disabled
+        placeholder="Short answer text"
+        className="w-full border-b-midnight/20 bg-transparent"
+      />
     );
   },
 );

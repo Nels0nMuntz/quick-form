@@ -17,6 +17,7 @@ interface Props {
   type?: EditFieldType;
   initialValue?: JSONContent;
   oneLine?: boolean;
+  readonly?: boolean;
   className?: string;
   onChange: (json: JSONContent) => void;
 }
@@ -25,6 +26,7 @@ export function EditField({
   initialValue,
   type = "paragraph",
   oneLine = false,
+  readonly = false,
   className,
   onChange,
 }: Props) {
@@ -63,6 +65,7 @@ export function EditField({
               oneLine={oneLine}
               onContentChange={onChange}
               initialContent={value}
+              readonly={readonly}
             />
           )}
         />

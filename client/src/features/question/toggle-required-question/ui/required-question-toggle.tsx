@@ -1,3 +1,4 @@
+"use client";
 import { memo, useId } from "react";
 import { Label } from "@/shared/ui";
 import { Switch } from "@/shared/ui";

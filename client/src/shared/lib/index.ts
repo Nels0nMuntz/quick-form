@@ -18,6 +18,7 @@ export {
 
 export { useIsMobile } from "./hooks/use-mobile";
 export { useToast, toast } from "./hooks/use-toast/use-toast";
+export { useReadonlyMode } from "./hooks/useReadonlyMode";
 
 export { ICONS } from "./constants/icons/icons";
 export type { IconsProps } from "./constants/icons/types";

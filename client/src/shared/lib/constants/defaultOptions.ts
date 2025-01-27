@@ -1,20 +1,7 @@
-import { FormQuestionsTypes } from "@/entities/question";
 import { buildJsonContent } from "../utils/buildJsonContent";
 import { generateUniqueId } from "../utils/generateUniqueId";
 
-export const DFAULT_ANSWER: Record<FormQuestionsTypes, any> = {
-  "Short text": {
-    text: buildJsonContent({
-      type: "paragraph",
-      text: "Short answer text",
-    }),
-  },
-  "Long text": {
-    text: buildJsonContent({
-      type: "paragraph",
-      text: "Long answer text",
-    }),
-  },
+export const DFAULT_OPTIONS: Record<"Checkbox" | "Dropdown", any> = {
   Checkbox: {
     options: [
       {

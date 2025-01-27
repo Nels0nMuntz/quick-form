@@ -1,3 +1,4 @@
+"use client";
 import { useFormQuestions } from "@/shared/model";
 import {
   LongTextQuestion,

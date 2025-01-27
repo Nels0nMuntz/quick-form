@@ -13,7 +13,8 @@ const buttonVariants = cva("w-full h-auto", {
         "border border-sky bg-background shadow-sm text-sky hover:bg-accent hover:text-sky",
       // secondary:
       //   "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-      ghost: "hover:bg-accent text-midnight hover:text-midnight shadow-none bg-transparent",
+      ghost:
+        "hover:bg-accent text-midnight hover:text-midnight shadow-none bg-transparent",
       // link: "text-primary underline-offset-4 hover:underline",
     },
     size: {
@@ -44,6 +45,7 @@ export function Button({
   disabled,
   loading,
   size,
+  ...props
 }: Props) {
   return (
     <BaseButton
@@ -51,6 +53,7 @@ export function Button({
       asChild={asChild}
       disabled={disabled || loading}
       size={size}
+      {...props}
     >
       <>
         {loading ? <Loader2 className="animate-spin" /> : null}
