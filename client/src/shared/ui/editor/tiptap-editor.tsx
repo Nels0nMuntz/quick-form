@@ -1,7 +1,7 @@
 "use client";
 
 import { forwardRef, useCallback, useState } from "react";
-import { Content, Editor, Extension } from "@tiptap/react";
+import { Content, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Underline from "@tiptap/extension-underline";
 import Link from "@tiptap/extension-link";
@@ -36,17 +36,6 @@ interface Props {
   oneLine?: boolean;
   onContentChange?: (value: Content) => void;
 }
-
-
-
-const CustomBold = Heading.extend({
-  
-  renderHTML({ HTMLAttributes }) {
-    // Original:
-    // return ['strong', HTMLAttributes, 0]
-    return ['b', HTMLAttributes, 0]
-  },
-})
 
 export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
   function TiptapEditor(props, ref) {
@@ -91,23 +80,10 @@ export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
       ref,
       placeholder,
       extensions: [
-        StarterKit.configure({
-          paragraph: {
-            HTMLAttributes: {
-              class: "text-lg",
-            },
-          },
-          heading: {
-            levels: [1, 2, 3],
-            HTMLAttributes: {
-              
-            }
-          }
-        }),
+        StarterKit,
         Underline,
         Link,
         ...(oneLine ? [NoNewLine] : []),
-        // Heading,
       ],
       content: initialContent,
       editable: isEditable,

@@ -42,7 +42,7 @@ const DFAULT_FORM_DESCRIPTION_TEXT = "Description";
 
 export const useFormStore = create<FormStore>()((set) => {
   const defaultQuestion = createDefaultQuestion({
-    type: "Short text",
+    type: "Checkbox",
   });
   return {
     title: buildJsonContent({
@@ -55,7 +55,7 @@ export const useFormStore = create<FormStore>()((set) => {
       text: DFAULT_FORM_DESCRIPTION_TEXT,
     }),
     questions: {
-      // [defaultQuestion.id]: defaultQuestion,
+      [defaultQuestion.id]: defaultQuestion,
     },
     actions: {
       setTitle: (json) => set({ title: json }),

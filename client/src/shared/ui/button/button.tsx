@@ -56,8 +56,8 @@ export function Button({
       {...props}
     >
       <>
-        {loading ? <Loader2 className="animate-spin" /> : null}
-        {children}
+        {loading ? <Loader2 className="animate-spin" width={20} height={20}/> : null}
+        {!loading && children}
       </>
     </BaseButton>
   );

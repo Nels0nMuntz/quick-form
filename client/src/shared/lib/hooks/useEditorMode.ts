@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 
-export const useReadonlyMode = () => {
+export const useEditorMode = () => {
   const pathname = usePathname();
-  return pathname.includes("/preview");
+  return pathname.includes("/preview") ? "preview" : "edit";
 };

@@ -6,7 +6,7 @@ import { Button } from "@/shared/ui";
 export function Toolbar() {
   const router = useRouter();
   const openPreviewPage = () => {
-    router.push("/preview");
+    router.push("/form/preview");
   }
   return (
     <div className="flex justify-start gap-x-1 py-3 md:justify-end">

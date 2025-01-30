@@ -15,7 +15,7 @@ export function DashboardPage() {
           asChild
           className="h-auto bg-sky p-8 text-white hover:bg-sky/85"
         >
-          <Link href="/dashboard/create">
+          <Link href="/form/create">
             <div className="flex items-center gap-x-4">
               <Icon name="new-form" />
               <span className="text-lg">+ New Form</span>

@@ -8,6 +8,7 @@ export * from "./shadcn-ui/skeleton";
 export * from "./shadcn-ui/tooltip";
 export * from "./shadcn-ui/switch";
 export * from "./shadcn-ui/dropdown-menu";
+export * from "./shadcn-ui/checkbox";
 export { Button as BaseButton } from "./shadcn-ui/button";
 
 export { Icon } from "./icon/icon";
@@ -18,3 +19,4 @@ export { PageTitle } from "./page-title/page-title";
 export { Paper } from "./paper/paper";
 export { EditField } from "./editor/edit-field";
 export { Devider } from "./devider/devider";
+export { FormWrapper } from "./form-wrapper/form-wrapper";

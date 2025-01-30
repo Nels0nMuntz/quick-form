@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { cookies } from "next/headers";
 import { appConfig } from "@/app-root/lib";
 import { API_ENDPOINTS } from "../constants/apiEndpoints";
@@ -19,7 +19,7 @@ const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
     try {
       const requestCookies = await cookies();
-      const response = await fetch(`${appConfig}${API_ENDPOINTS[url]}`, {
+      const response = await fetch(`${appConfig.apiUrl}${API_ENDPOINTS[url]}`, {
         method: method,
         headers: {
           "Content-Type": "application/json",
@@ -55,16 +55,18 @@ const httpClient: HTTPClient = (method) => {
   };
 };
 
-const get = httpClient("GET");
+export const serverGet = async <ResponseData = any, ErrorDetails = any>(
+  url: RequestUrl,
+  options?: RequestInit,
+) => httpClient("GET")<ResponseData, ErrorDetails>(url, options);
 
-const post = (url: RequestUrl, body: any, options?: RequestInit) => {
-  return httpClient("POST")(url, {
+export const serverPost = async <ResponseData = any, ErrorDetails = any>(
+  url: RequestUrl,
+  body: any,
+  options?: RequestInit,
+) => {
+  return httpClient("POST")<ResponseData, ErrorDetails>(url, {
     body: JSON.stringify(body),
     ...options,
   });
-};
-
-export const serverFetch = {
-  get,
-  post,
 };

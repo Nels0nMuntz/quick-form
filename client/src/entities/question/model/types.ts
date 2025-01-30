@@ -1,12 +1,10 @@
-import { OmitNever } from "@/shared/model";
-
+import { EditorJSONContent, OmitNever } from "@/shared/model";
 import { PartialByKeys } from "@/shared/model";
-import { JSONContent } from "@tiptap/react";
 
 export interface BaseFormQuestion<Type extends FormQuestionsTypes> {
   id: string;
   type: Type;
-  title: JSONContent;
+  title: EditorJSONContent;
   // text: Type extends "Short text" | "Long text" ? JSONContent : never;
   multiple: Type extends "Checkbox" | "Dropdown" ? boolean : never;
   options: Type extends "Checkbox" | "Dropdown" ? FormQuestionOption[] : never;
@@ -30,7 +28,7 @@ export type FormQuestionsTypes =
 
 export interface FormQuestionOption {
   id: string;
-  value: JSONContent;
+  value: EditorJSONContent;
 }
 
 export interface QuestionComponentProps {

@@ -15,10 +15,11 @@ export {
   validateRefreshToken,
   closeSession,
 } from "./session";
+export { generateHTML } from "./editor";
 
 export { useIsMobile } from "./hooks/use-mobile";
 export { useToast, toast } from "./hooks/use-toast/use-toast";
-export { useReadonlyMode } from "./hooks/useReadonlyMode";
+export { useEditorMode } from "./hooks/useEditorMode";
 
 export { ICONS } from "./constants/icons/icons";
 export type { IconsProps } from "./constants/icons/types";

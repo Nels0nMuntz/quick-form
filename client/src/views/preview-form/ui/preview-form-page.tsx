@@ -1,4 +1,4 @@
-import { FormTitle } from "@/features/form";
+import { FormDescription, FormTitle } from "@/features/form";
 import { Container, Paper } from "@/shared/ui";
 import { BackButton } from "./back-button";
 
@@ -16,7 +16,7 @@ export function PreviewFormPage() {
             <Paper top>
               <div className="flex flex-col gap-y-2">
                 <FormTitle />
-                {/* <FormDescription /> */}
+                <FormDescription />
               </div>
             </Paper>
             {/* <Questions /> */}

@@ -1,12 +1,8 @@
 import { PartialFormQuestion } from "@/entities/question";
+import { EditorJSONContent } from "./EditorJSONContent";
 
 export interface FormConfig {
-  id: string;
-  createdAt?: string;
-  updatedAt?: string;
-  data: {
-    title: string;
-    description?: string;
-    questions: PartialFormQuestion[];
-  };
+  title: EditorJSONContent;
+  description?: EditorJSONContent;
+  questions: PartialFormQuestion[];
 }

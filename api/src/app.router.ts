@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { userRouter } from "./user";
 import { ApiResponse, NotFoundError } from "./utils";
+import { userRouter } from "./user";
+import { formConfigRouter } from "./form";
 
 export const appRouter = Router();
 
@@ -14,6 +15,7 @@ appRouter.use("/status", (req, res) => {
     },
   });
 });
+appRouter.use("/form", formConfigRouter);
 appRouter.use("/*", (req, res) => {
   ApiResponse.sendErrorResponse({
     res,
