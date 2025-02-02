@@ -127,5 +127,5 @@ body {
 }
 .quick-form-wrapper p,
 .tiptap.ProseMirror p {
-  @apply text-2xl;
+  @apply text-xl;
 }

@@ -6,13 +6,13 @@ import {
 } from "@/shared/model";
 import { EditField } from "@/shared/ui";
 import { QuestionLayout } from "./question-layout";
-import { FormQuestion, QuestionComponentProps } from "../model/types";
+import { QuestionComponentProps } from "../model/types";
 import { useEditorMode } from "@/shared/lib";
 
-export const ShortTextQuestion = memo(
+export const QuestionClient = memo(
   ({ id, actions, dropdown, body }: QuestionComponentProps) => {
     const editorMode = useEditorMode()
-    const data = useFormQuestion(id) as FormQuestion<"Short text">;
+    const data = useFormQuestion(id);
     const { setQuestion } = useFormActions();
     const updateTitle = (json: EditorJSONContent) => {
       setQuestion({

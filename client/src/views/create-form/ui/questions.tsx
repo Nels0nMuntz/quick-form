@@ -1,13 +1,9 @@
 "use client";
 import { QuestionBodyProps, useFormQuestions } from "@/shared/model";
 import {
-  LongTextQuestion,
-  ShortTextQuestion,
-  CheckboxQuestion,
-  DropdownQuestion,
-  QuestionComponentProps,
   FormQuestionsTypes,
   PartialFormQuestion,
+  QuestionClient,
 } from "@/entities/question";
 import {
   ChangeQuestionTypeDropdown,
@@ -16,7 +12,6 @@ import {
   RequiredQuestionToggle,
 } from "@/features/question";
 import { Devider, QuestionsList } from "@/shared/ui";
-import { createQuestionFactory } from "@/shared/lib";
 import {
   ShortTextQuestionBody,
   LongTextQuestionBody,
@@ -25,18 +20,15 @@ import {
 } from "./question-body";
 import { useCallback } from "react";
 
-export const questionBody: Record<FormQuestionsTypes, React.FC<QuestionBodyProps>> = {
+export const questionBody: Record<
+  FormQuestionsTypes,
+  React.FC<QuestionBodyProps>
+> = {
   "Short text": ShortTextQuestionBody,
   "Long text": LongTextQuestionBody,
   Checkbox: CheckboxQuestionBody,
   Dropdown: DropdownQuestionBody,
 };
-
-export const questionFactory = createQuestionFactory();
-questionFactory.register("Short text", ShortTextQuestion);
-questionFactory.register("Long text", LongTextQuestion);
-questionFactory.register("Checkbox", CheckboxQuestion);
-questionFactory.register("Dropdown", DropdownQuestion);
 
 export function Questions() {
   const questions = useFormQuestions();
@@ -52,12 +44,14 @@ export function Questions() {
     const dropdown = <ChangeQuestionTypeDropdown questionId={item.id} />;
     const BodyComponent = questionBody[item.type];
     const body = <BodyComponent questionId={item.id} />;
-    return questionFactory.buildComponent<QuestionComponentProps>(item.type, {
-      id: item.id,
-      actions,
-      dropdown,
-      body,
-    });
+    return (
+      <QuestionClient
+        id={item.id}
+        body={body}
+        actions={actions}
+        dropdown={dropdown}
+      />
+    );
   }, []);
   return <QuestionsList items={questions} renderItem={renderItem} />;
 }
