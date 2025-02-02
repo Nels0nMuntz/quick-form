@@ -16,9 +16,11 @@ export function QuestionLayout({ title, body, actions, dropdown }: Props) {
           {dropdown}
         </div>
         <div>{body}</div>
-        <div className="flex justify-end gap-x-3 border-t border-midnight/20 p-2 pb-0">
-          {actions}
-        </div>
+        {actions && (
+          <div className="flex justify-end gap-x-3 border-t border-midnight/20 p-2 pb-0">
+            {actions}
+          </div>
+        )}
       </div>
     </Paper>
   );

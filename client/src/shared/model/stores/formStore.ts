@@ -29,7 +29,7 @@ interface FormActions {
     updateOption: (
       questionId: string,
       optionId: string,
-      json: EditorJSONContent,
+      value: string,
     ) => void;
     deleteOption: (questionId: string, optionId: string) => void;
   };
@@ -41,8 +41,17 @@ const DFAULT_FORM_TITLE_TEXT = "Title";
 const DFAULT_FORM_DESCRIPTION_TEXT = "Description";
 
 export const useFormStore = create<FormStore>()((set) => {
-  const defaultQuestion = createDefaultQuestion({
+  const question1 = createDefaultQuestion({
+    type: "Short text",
+  });
+  const question2 = createDefaultQuestion({
+    type: "Long text",
+  });
+  const question3 = createDefaultQuestion({
     type: "Checkbox",
+  });
+  const question4 = createDefaultQuestion({
+    type: "Dropdown",
   });
   return {
     title: buildJsonContent({
@@ -55,7 +64,10 @@ export const useFormStore = create<FormStore>()((set) => {
       text: DFAULT_FORM_DESCRIPTION_TEXT,
     }),
     questions: {
-      [defaultQuestion.id]: defaultQuestion,
+      [question1.id]: question1,
+      [question2.id]: question2,
+      [question3.id]: question3,
+      [question4.id]: question4,
     },
     actions: {
       setTitle: (json) => set({ title: json }),
@@ -159,29 +171,28 @@ export const useFormStore = create<FormStore>()((set) => {
                 ...(state.questions[id].options || []),
                 {
                   id: generateUniqueId(),
-                  value: buildJsonContent({
-                    type: "paragraph",
-                    text: `Option ${(state.questions[id].options || []).length + 1}`,
-                  }),
+                  value: `Option ${(state.questions[id].options || []).length + 1}`
                 },
               ],
             },
           },
         })),
-      updateOption: (questionId, optionId, json) => {
-        set((state) => ({
-          questions: {
-            ...state.questions,
-            [questionId]: {
-              ...state.questions[questionId],
-              options: [
-                ...(state.questions[questionId].options || []).map((option) =>
-                  option.id !== optionId ? { ...option, value: json } : option,
-                ),
-              ],
+      updateOption: (questionId, optionId, value) => {
+        set((state) => {
+          return {
+            questions: {
+              ...state.questions,
+              [questionId]: {
+                ...state.questions[questionId],
+                options: [
+                  ...(state.questions[questionId].options || []).map((option) =>
+                    option.id === optionId ? { ...option, value } : option,
+                  ),
+                ],
+              },
             },
-          },
-        }));
+          }
+        });
       },
       deleteOption: (questionId, optionId) => {
         set((state) => ({

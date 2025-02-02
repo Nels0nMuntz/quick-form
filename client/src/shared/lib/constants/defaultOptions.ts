@@ -6,24 +6,15 @@ export const DFAULT_OPTIONS: Record<"Checkbox" | "Dropdown", any> = {
     options: [
       {
         id: generateUniqueId(),
-        value: buildJsonContent({
-          type: "paragraph",
-          text: "Option 1",
-        }),
+        value: "Option 1",
       },
       {
         id: generateUniqueId(),
-        value: buildJsonContent({
-          type: "paragraph",
-          text: "Option 2",
-        }),
+        value: "Option 2",
       },
       {
         id: generateUniqueId(),
-        value: buildJsonContent({
-          type: "paragraph",
-          text: "Option 3",
-        }),
+        value: "Option 3",
       },
     ],
     multiple: false,
@@ -32,24 +23,15 @@ export const DFAULT_OPTIONS: Record<"Checkbox" | "Dropdown", any> = {
     options: [
       {
         id: generateUniqueId(),
-        value: buildJsonContent({
-          type: "paragraph",
-          text: "Option 1",
-        }),
+        value: "Option 1",
       },
       {
         id: generateUniqueId(),
-        value: buildJsonContent({
-          type: "paragraph",
-          text: "Option 2",
-        }),
+        value: "Option 2",
       },
       {
         id: generateUniqueId(),
-        value: buildJsonContent({
-          type: "paragraph",
-          text: "Option 3",
-        }),
+        value: "Option 3",
       },
     ],
     multiple: false,

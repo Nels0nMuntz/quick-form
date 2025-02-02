@@ -20,3 +20,4 @@ export { Paper } from "./paper/paper";
 export { EditField } from "./editor/edit-field";
 export { Devider } from "./devider/devider";
 export { FormWrapper } from "./form-wrapper/form-wrapper";
+export { QuestionsList } from "./questions-list/questions-list";

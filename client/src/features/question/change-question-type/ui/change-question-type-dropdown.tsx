@@ -58,12 +58,7 @@ export const ChangeQuestionTypeDropdown: React.FC<Props> = memo(
             />
           </BaseButton>
         </DropdownMenuTrigger>
-        <DropdownMenuContent
-          className="w-56"
-          onChange={(w) => {
-            console.log({ w });
-          }}
-        >
+        <DropdownMenuContent className="w-56">
           {Object.entries(typeNames).map(([itemType, itemName], index) => (
             <DropdownMenuItem
               key={index}

@@ -1,6 +1,7 @@
 import { FormDescription, FormTitle } from "@/features/form";
 import { Container, Paper } from "@/shared/ui";
 import { BackButton } from "./back-button";
+import { Questions } from "./questions";
 
 export function PreviewFormPage() {
   return (
@@ -19,7 +20,7 @@ export function PreviewFormPage() {
                 <FormDescription />
               </div>
             </Paper>
-            {/* <Questions /> */}
+            <Questions />
           </div>
         </Container>
       </div>

@@ -3,6 +3,7 @@ export { throttle } from "./utils/trottle";
 export { createDefaultQuestion } from "./utils/createDefaultQuestion";
 export { buildJsonContent } from "./utils/buildJsonContent";
 export { generateUniqueId } from "./utils/generateUniqueId";
+export { createQuestionFactory } from "./utils/questionFactory";
 export { cn } from "./shadcn-utils";
 
 export {

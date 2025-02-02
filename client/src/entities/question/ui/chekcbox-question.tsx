@@ -4,9 +4,11 @@ import { useFormQuestion, useFormActions } from "@/shared/model";
 import { EditField } from "@/shared/ui";
 import { QuestionLayout } from "./question-layout";
 import { FormQuestion, QuestionComponentProps } from "../model/types";
+import { useEditorMode } from "@/shared/lib";
 
 export const CheckboxQuestion = memo(
   ({ id, actions, dropdown, body }: QuestionComponentProps) => {
+    const editorMode = useEditorMode();
     const data = useFormQuestion(id) as FormQuestion<"Checkbox">;
     const { setQuestion } = useFormActions();
     const updateTitle = (json: JSONContent) => {
@@ -22,6 +24,7 @@ export const CheckboxQuestion = memo(
             initialValue={data.title}
             onChange={updateTitle}
             type="heading"
+            readonly={editorMode === "preview"}
           />
         }
         body={body}

@@ -5,15 +5,13 @@ export interface BaseFormQuestion<Type extends FormQuestionsTypes> {
   id: string;
   type: Type;
   title: EditorJSONContent;
-  // text: Type extends "Short text" | "Long text" ? JSONContent : never;
-  multiple: Type extends "Checkbox" | "Dropdown" ? boolean : never;
   options: Type extends "Checkbox" | "Dropdown" ? FormQuestionOption[] : never;
   required?: boolean;
 }
 
 export type PartialFormQuestion = PartialByKeys<
   BaseFormQuestion<FormQuestionsTypes>,
-  "options" | "multiple"
+  "options"
 >;
 
 export type FormQuestion<Type extends FormQuestionsTypes> = OmitNever<
@@ -28,12 +26,12 @@ export type FormQuestionsTypes =
 
 export interface FormQuestionOption {
   id: string;
-  value: EditorJSONContent;
+  value: string;
 }
 
 export interface QuestionComponentProps {
   id: string;
-  actions: React.ReactNode;
-  dropdown: React.ReactNode;
   body: React.ReactNode;
+  actions?: React.ReactNode;
+  dropdown?: React.ReactNode;
 }

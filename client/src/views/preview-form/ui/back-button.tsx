@@ -7,7 +7,7 @@ export function BackButton() {
   const router = useRouter();
   return (
     <Button
-      className="flex w-auto items-center gap-x-4"
+      className="flex w-auto items-center gap-x-4 max-w-32"
       onClick={() => router.back()}
     >
       <Undo2 />
