@@ -1,4 +1,4 @@
-export * from "./stores/formStore";
+export * from "./stores/createFormStore";
 
 export * from "./types/utility";
 export type { FormConfig } from "./types/formConfig";

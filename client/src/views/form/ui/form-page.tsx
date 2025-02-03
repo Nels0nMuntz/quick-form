@@ -2,10 +2,10 @@ import { Form } from "@/entities/form";
 import { serverGet } from "@/shared/api";
 import { generateHTML } from "@/shared/lib";
 import { FormWrapper, Paper } from "@/shared/ui";
+import { Questions } from "./questions";
 
 export async function FormPage() {
   const response = await serverGet<Form>("form");
-  console.log({ response });
 
   if (!response.ok || !response.data.success) {
     return <div>Something went wrong</div>;
@@ -25,7 +25,7 @@ export async function FormPage() {
           dangerouslySetInnerHTML={{ __html: `${title}${description}` }}
         ></div>
       </Paper>
-      {/* <Questions /> */}
+      <Questions questions={config.questions}/>
     </FormWrapper>
   );
 }

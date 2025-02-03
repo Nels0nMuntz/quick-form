@@ -19,7 +19,7 @@ interface Props {
   oneLine?: boolean;
   readonly?: boolean;
   className?: string;
-  onChange: (json: JSONContent) => void;
+  onChange?: (json: JSONContent) => void;
 }
 
 export function EditField({
@@ -44,7 +44,7 @@ export function EditField({
     const subscription = watch((values, { type }) => {
       const json = values.editField as unknown as JSONContent;
       if (type === "change") {
-        onChange(json);
+        onChange && onChange(json);
       }
     });
 
@@ -53,7 +53,7 @@ export function EditField({
 
   return (
     <Form {...form}>
-      <form className={className}>
+      <div className={className}>
         <FormField
           control={form.control}
           name="editField"
@@ -69,7 +69,7 @@ export function EditField({
             />
           )}
         />
-      </form>
+      </div>
     </Form>
   );
 }

@@ -3,8 +3,8 @@ import { Paper } from "@/shared/ui";
 interface Props {
   title: React.ReactNode;
   body: React.ReactNode;
-  actions: React.ReactNode;
-  dropdown: React.ReactNode;
+  actions?: React.ReactNode;
+  dropdown?: React.ReactNode;
 }
 
 export function QuestionLayout({ title, body, actions, dropdown }: Props) {

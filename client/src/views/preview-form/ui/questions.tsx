@@ -3,7 +3,6 @@ import {
   FormQuestionsTypes,
   PartialFormQuestion,
   QuestionClient,
-  QuestionComponentProps,
 } from "@/entities/question";
 import { QuestionBodyProps, useFormQuestions } from "@/shared/model";
 import { QuestionsList } from "@/shared/ui";

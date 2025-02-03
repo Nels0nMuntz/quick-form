@@ -29,9 +29,14 @@ export interface FormQuestionOption {
   value: string;
 }
 
-export interface QuestionComponentProps {
+export interface ClientQuestionComponentProps {
   id: string;
   body: React.ReactNode;
   actions?: React.ReactNode;
   dropdown?: React.ReactNode;
+}
+
+export interface ServerQuestionComponentProps {
+  title: EditorJSONContent;
+  body: React.ReactNode;
 }

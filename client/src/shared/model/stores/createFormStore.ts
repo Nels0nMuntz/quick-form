@@ -40,7 +40,7 @@ type FormStore = FormState & FormActions;
 const DFAULT_FORM_TITLE_TEXT = "Title";
 const DFAULT_FORM_DESCRIPTION_TEXT = "Description";
 
-export const useFormStore = create<FormStore>()((set) => {
+const useCreateFormStore = create<FormStore>()((set) => {
   const question1 = createDefaultQuestion({
     type: "Short text",
   });
@@ -213,12 +213,12 @@ export const useFormStore = create<FormStore>()((set) => {
   };
 });
 
-export const useFormTitle = () => useFormStore((state) => state.title);
+export const useFormTitle = () => useCreateFormStore((state) => state.title);
 export const useFormDescription = () =>
-  useFormStore((state) => state.description);
+  useCreateFormStore((state) => state.description);
 export const useFormQuestions = () =>
-  useFormStore(useShallow((state) => Object.values(state.questions)));
+  useCreateFormStore(useShallow((state) => Object.values(state.questions)));
 export const useFormQuestion = (id: string) =>
-  useFormStore(useShallow((state) => state.questions[id]));
+  useCreateFormStore(useShallow((state) => state.questions[id]));
 
-export const useFormActions = () => useFormStore((state) => state.actions);
+export const useFormActions = () => useCreateFormStore((state) => state.actions);
