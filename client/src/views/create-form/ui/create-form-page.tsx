@@ -1,6 +1,11 @@
 import { Header } from "@/widgets/header";
-import { FormDescription, FormTitle, PublishFormButton } from "@/features/form";
-import { Container, PageTitle, Paper } from "@/shared/ui";
+import {
+  FormDescription,
+  FormName,
+  FormTitle,
+  PublishFormButton,
+} from "@/features/form";
+import { Container, Paper } from "@/shared/ui";
 import { AddQuestion } from "@/features/question";
 import { Questions } from "./questions";
 import { Toolbar } from "./toolbar";
@@ -8,10 +13,10 @@ import { Toolbar } from "./toolbar";
 export function CreateFormPage() {
   return (
     <>
-      <div className="border-b border-gray-200 pt-12 bg-white">
+      <div className="border-b border-gray-200 bg-white pt-12">
         <Container>
           <Header
-            title={<PageTitle>Create New Form</PageTitle>}
+            title={<FormName />}
             action={<PublishFormButton />}
           />
           <Toolbar />

@@ -9,7 +9,7 @@ interface Props {
 export function Header({ title, action, breadcrumbs }: Props) {
   return (
     <header className="flex flex-col gap-y-2">
-      <div className="flex flex-wrap justify-between gap-x-4 gap-y-2">
+      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
         {title}
         {action}
       </div>

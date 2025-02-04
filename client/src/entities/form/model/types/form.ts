@@ -6,5 +6,5 @@ export interface Form {
   config: FormConfig;
   createdAt: string;
   updatedAt: string;
-  endsAt: string;
+  endsAt: string | null;
 }

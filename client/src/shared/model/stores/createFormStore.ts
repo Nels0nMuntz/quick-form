@@ -10,6 +10,7 @@ import {
 import { EditorJSONContent } from "../types/EditorJSONContent";
 
 interface FormState {
+  name: string;
   title: JSONContent;
   description?: JSONContent;
   questions: Record<string, PartialFormQuestion>;
@@ -17,6 +18,7 @@ interface FormState {
 
 interface FormActions {
   actions: {
+    setName: (value: string) => void;
     setTitle: (json: JSONContent) => void;
     setDescription: (json: JSONContent) => void;
     setQuestion: (question: PartialFormQuestion) => void;
@@ -26,11 +28,7 @@ interface FormActions {
     toggleRequired: (id: string) => void;
     changeQuestionType: (id: string, value: FormQuestionsTypes) => void;
     addOption: (id: string) => void;
-    updateOption: (
-      questionId: string,
-      optionId: string,
-      value: string,
-    ) => void;
+    updateOption: (questionId: string, optionId: string, value: string) => void;
     deleteOption: (questionId: string, optionId: string) => void;
   };
 }
@@ -54,6 +52,7 @@ const useCreateFormStore = create<FormStore>()((set) => {
     type: "Dropdown",
   });
   return {
+    name: "Untitled Form",
     title: buildJsonContent({
       type: "heading",
       level: 1,
@@ -70,6 +69,7 @@ const useCreateFormStore = create<FormStore>()((set) => {
       [question4.id]: question4,
     },
     actions: {
+      setName: (value) => set({ name: value }),
       setTitle: (json) => set({ title: json }),
       setDescription: (json) => set({ description: json }),
       setQuestion: (question) =>
@@ -171,7 +171,7 @@ const useCreateFormStore = create<FormStore>()((set) => {
                 ...(state.questions[id].options || []),
                 {
                   id: generateUniqueId(),
-                  value: `Option ${(state.questions[id].options || []).length + 1}`
+                  value: `Option ${(state.questions[id].options || []).length + 1}`,
                 },
               ],
             },
@@ -185,13 +185,14 @@ const useCreateFormStore = create<FormStore>()((set) => {
               [questionId]: {
                 ...state.questions[questionId],
                 options: [
-                  ...(state.questions[questionId].options || []).map((option) =>
-                    option.id === optionId ? { ...option, value } : option,
+                  ...(state.questions[questionId].options || []).map(
+                    (option) =>
+                      option.id === optionId ? { ...option, value } : option,
                   ),
                 ],
               },
             },
-          }
+          };
         });
       },
       deleteOption: (questionId, optionId) => {
@@ -213,6 +214,7 @@ const useCreateFormStore = create<FormStore>()((set) => {
   };
 });
 
+export const useFormName = () => useCreateFormStore((state) => state.name);
 export const useFormTitle = () => useCreateFormStore((state) => state.title);
 export const useFormDescription = () =>
   useCreateFormStore((state) => state.description);
@@ -221,4 +223,5 @@ export const useFormQuestions = () =>
 export const useFormQuestion = (id: string) =>
   useCreateFormStore(useShallow((state) => state.questions[id]));
 
-export const useFormActions = () => useCreateFormStore((state) => state.actions);
+export const useFormActions = () =>
+  useCreateFormStore((state) => state.actions);

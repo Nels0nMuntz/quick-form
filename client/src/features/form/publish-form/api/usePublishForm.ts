@@ -9,8 +9,7 @@ export const usePublishForm = (
   return useMutation({
     mutationKey: ["post-form"],
     mutationFn: async () => {
-      const response = await clientFetch.post("form", data);
-      console.log({ response });
+      const response = await clientFetch.post("forms", data);
       if(!response.ok && !response.data.success) {
         throw new Error(response.data.error)
       }

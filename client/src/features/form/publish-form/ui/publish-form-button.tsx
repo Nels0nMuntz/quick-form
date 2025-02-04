@@ -1,6 +1,7 @@
 "use client";
 import {
   useFormDescription,
+  useFormName,
   useFormQuestions,
   useFormTitle,
 } from "@/shared/model";
@@ -10,11 +11,13 @@ import { usePublishForm } from "../api/usePublishForm";
 import { PublishFormRequest } from "../model/publishFormRequest";
 
 export function PublishFormButton() {
+  const name = useFormName();
   const title = useFormTitle();
   const description = useFormDescription();
   const questions = useFormQuestions();
   const data: PublishFormRequest = {
     config: {
+      name,
       title,
       description,
       questions,
