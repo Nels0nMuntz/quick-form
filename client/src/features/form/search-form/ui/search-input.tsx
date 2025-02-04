@@ -20,7 +20,7 @@ export function SearchInput() {
       <Input
         type="text"
         placeholder="Search..."
-        className="w-full max-w-64 pr-10"
+        className="w-full max-w-64 pr-10 bg-white"
         value={value}
         onChange={handleChange}
       />

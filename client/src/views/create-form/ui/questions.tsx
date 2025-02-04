@@ -50,6 +50,7 @@ export function Questions() {
         body={body}
         actions={actions}
         dropdown={dropdown}
+        key={item.id}
       />
     );
   }, []);

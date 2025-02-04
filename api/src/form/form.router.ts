@@ -1,9 +1,17 @@
 import { Router } from "express";
-import { getJson, getHtml, create } from "./form.controller";
 import { authenticateWith, authStrategies } from "../shared";
+import formController from "./form.controller";
 
-export const formConfigRouter = Router();
+export const formRouter = Router();
 
-formConfigRouter.get("/", getJson);
-formConfigRouter.get("/html", getHtml);
-formConfigRouter.post("/", create);
+formRouter.get(
+  "/:id",
+  // authenticateWith(authStrategies.jwt),
+  formController.get
+);
+
+formRouter.post(
+  "/",
+  authenticateWith(authStrategies.jwt),
+  formController.create
+);

@@ -1,15 +1,20 @@
 import { useMutation, UseMutationOptions } from "@tanstack/react-query";
 import { clientFetch } from "@/shared/api";
-import { FormConfig } from "@/shared/model";
+import { PublishFormRequest } from "../model/publishFormRequest";
 
 export const usePublishForm = (
-  data: FormConfig,
+  data: PublishFormRequest,
   options?: UseMutationOptions,
 ) => {
   return useMutation({
     mutationKey: ["post-form"],
-    mutationFn: () => {
-      return clientFetch.post("form", data);
+    mutationFn: async () => {
+      const response = await clientFetch.post("form", data);
+      console.log({ response });
+      if(!response.ok && !response.data.success) {
+        throw new Error(response.data.error)
+      }
+      return response;
     },
     ...options,
   });

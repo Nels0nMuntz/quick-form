@@ -1,11 +1,13 @@
 import { db } from "../lib";
 import { CreateUserData } from "./types/createUserData";
-import { UserEntity } from "./types/userEntity";
 
 export const findByEmail = async (email: string) => {
-  return db.user.findUnique({
+  return await db.user.findUnique({
     where: {
       email,
+    },
+    include: {
+      forms: true,
     },
   });
 };

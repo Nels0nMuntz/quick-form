@@ -2,6 +2,7 @@ import { appConfig } from "@/app-root/lib";
 import { API_ENDPOINTS } from "../constants/apiEndpoints";
 import { ApiResponse } from "../types/apiResponse";
 import { FetchResponse } from "../types/fetchResponse";
+import { toast } from "@/shared/lib";
 
 type RequestUrl = keyof typeof API_ENDPOINTS;
 type RequestParams = Record<string, any>;
@@ -32,7 +33,7 @@ const objectToQueryParams = (obj: RequestParams) => {
 
       return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
     })
-    .filter(Boolean) 
+    .filter(Boolean)
     .join("&");
 };
 
@@ -69,12 +70,17 @@ const httpClient: HTTPClient = (method) => {
         },
       );
 
+      // console.log(refreshResponse);
+
       if (!refreshResponse.ok) {
-        window.location.href = "/sign-in";
+        // window.location.href = "/sign-in";
         return {
           ok: false,
-          status: 401,
-          data: null,
+          status: refreshResponse.status,
+          data: {
+            success: false,
+            error: "User not found"
+          },
         };
       }
 

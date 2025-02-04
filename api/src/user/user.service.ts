@@ -73,6 +73,7 @@ const getCurrent = async (email: string): Promise<CurrentUser> => {
     id: user.id,
     email: user.email,
     fullName: user.full_name,
+    forms: user.forms,
   };
 };
 

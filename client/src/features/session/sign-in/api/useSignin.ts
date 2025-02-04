@@ -23,18 +23,17 @@ export const useSignin = () => {
         });
         return;
       }
+
       if (!response.data.success) {
         toast({
           title: "Signin error",
-          description: response.data.details
-            .map((item: any) => item.message)
-            .join(". "),
+          description: response.data.error,
           variant: "destructive",
         });
         return;
       }
     } catch (error) {
-      console.log({ error });
+      console.log(error);
       toast({
         title: "There was a problem",
         description: "There was an error logging in",

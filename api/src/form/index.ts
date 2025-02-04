@@ -1,1 +1,1 @@
-export { formConfigRouter } from "./form.router";
+export { formRouter } from "./form.router";

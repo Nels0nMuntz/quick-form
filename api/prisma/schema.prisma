@@ -18,6 +18,7 @@ model User {
   email         String   @unique
   full_name     String
   password_hash String
+  forms         Form[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -28,4 +29,42 @@ model Token {
   refresh_token String   @unique
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+}
+
+model Form {
+  id        Int         @id @default(autoincrement())
+  config    FormConfig?
+  userId    String
+  user      User        @relation(fields: [userId], references: [id])
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  endsAt    DateTime?
+}
+
+model FormConfig {
+  id          String         @id @default(cuid())
+  formId      Int            @unique
+  form        Form           @relation(fields: [formId], references: [id])
+  title       Json
+  description Json?          @default("null")
+  questions   FormQuestion[]
+}
+
+model FormQuestion {
+  id           String               @id @default(cuid())
+  formConfigId String
+  type         String
+  title        Json
+  options      FormQuestionOption[]
+  required     Boolean?
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+  formConfig   FormConfig           @relation(fields: [formConfigId], references: [id])
+}
+
+model FormQuestionOption {
+  id           String       @id @default(cuid())
+  questionId   String
+  value        String
+  formQuestion FormQuestion @relation(fields: [questionId], references: [id])
 }
