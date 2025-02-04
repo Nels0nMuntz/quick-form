@@ -8,6 +8,7 @@ export interface FormEntity {
 
 interface FormConfig {
   id: string;
+  name: string;
   title: object;
   description?: object;
   questions: FormQuestion[];

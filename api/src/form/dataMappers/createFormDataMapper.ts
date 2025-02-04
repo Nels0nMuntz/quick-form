@@ -2,7 +2,11 @@ import { Mapper } from "../../shared";
 import { CreateFormData } from "../types/createFormData";
 
 export const createUserDataMapper: Mapper<CreateFormData> = (data) => ({
-  name: data.name,
-  config: data.config,
+  config: {
+    name: data.config.name,
+    title: data.config.title,
+    description: data.config.description,
+    questions: data.config.questions,
+  },
   endsAt: data.endsAt,
 });

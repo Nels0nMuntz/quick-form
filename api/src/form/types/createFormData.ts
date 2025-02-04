@@ -1,3 +1,6 @@
 import { FormEntity } from "./formEntity";
 
-export type CreateFormData = Pick<FormEntity, "config" | "endsAt">;
+export interface CreateFormData {
+  config: Omit<FormEntity["config"], "id">;
+  endsAt: Date | null;
+}

@@ -34,7 +34,7 @@ const findById = async (formId: number) => {
 
 const create = async (form: CreateFormData, user: CurrentUser) => {
   const { endsAt, config } = form;
-  const { title, description, questions } = config;
+  const { name, title, description, questions } = config;
 
   const savedForm = await db.form.create({
     data: {
@@ -49,6 +49,7 @@ const create = async (form: CreateFormData, user: CurrentUser) => {
 
   const savedFormConfig = await db.formConfig.create({
     data: {
+      name,
       title,
       description,
       formId: savedForm.id,

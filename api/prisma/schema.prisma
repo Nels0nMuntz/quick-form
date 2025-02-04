@@ -43,11 +43,12 @@ model Form {
 
 model FormConfig {
   id          String         @id @default(cuid())
-  formId      Int            @unique
-  form        Form           @relation(fields: [formId], references: [id])
+  name        String
   title       Json
   description Json?          @default("null")
   questions   FormQuestion[]
+  formId      Int            @unique
+  form        Form           @relation(fields: [formId], references: [id])
 }
 
 model FormQuestion {
