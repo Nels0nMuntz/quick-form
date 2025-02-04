@@ -15,7 +15,7 @@ appRouter.use("/status", (req, res) => {
     },
   });
 });
-appRouter.use("/form", formRouter);
+appRouter.use("/forms", formRouter);
 appRouter.use("/*", (req, res) => {
   ApiResponse.sendErrorResponse({
     res,

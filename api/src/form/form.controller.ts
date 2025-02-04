@@ -10,8 +10,22 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
     const form = await formService.get(formId);
     ApiResponse.sendSuccessResponse({
       res,
-      status: 201,
+      status: 200,
       data: form,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getAll = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const userId = req?.user?.id as string;
+    const forms = await formService.getAll(userId);
+    ApiResponse.sendSuccessResponse({
+      res,
+      status: 200,
+      data: forms,
     });
   } catch (error) {
     next(error);
@@ -32,4 +46,4 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { get, create };
+export default { get, getAll, create };

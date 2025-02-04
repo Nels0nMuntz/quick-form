@@ -2,6 +2,17 @@ import { CurrentUser } from "../user/types/currentUser";
 import { db } from "../lib";
 import { CreateFormData } from "./types/createFormData";
 
+const findByUserId = async (userId: string) => {
+  return await db.form.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      config: true,
+    },
+  });
+};
+
 const findById = async (formId: number) => {
   return await db.form.findUnique({
     where: {
@@ -65,4 +76,4 @@ const create = async (form: CreateFormData, user: CurrentUser) => {
   }
 };
 
-export default { findById, create };
+export default { findById, findByUserId, create };

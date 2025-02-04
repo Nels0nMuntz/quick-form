@@ -6,7 +6,7 @@ export const formRouter = Router();
 
 formRouter.get(
   "/:id",
-  // authenticateWith(authStrategies.jwt),
+  authenticateWith(authStrategies.jwt),
   formController.get
 );
 
