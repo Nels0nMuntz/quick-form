@@ -70,8 +70,6 @@ const httpClient: HTTPClient = (method) => {
         },
       );
 
-      // console.log(refreshResponse);
-
       if (!refreshResponse.ok) {
         // window.location.href = "/sign-in";
         return {

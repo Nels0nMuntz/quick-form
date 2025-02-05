@@ -27,7 +27,7 @@ export class BadRequestError extends NextError {
 
 export class UnauthorizedError extends NextError {
   constructor(message?: string, details?: any) {
-    super(message || "Unauthorized here", StatusCodes.UNAUTHORIZED, details);
+    super(message || "Unauthorized", StatusCodes.UNAUTHORIZED, details);
   }
 }
 

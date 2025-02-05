@@ -67,7 +67,10 @@ const signout = async (req: Request, res: Response, next: NextFunction) => {
 const refresh = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.cookies.jwt_refresh;
+    console.log({refreshcookies: req.cookies});
+    
     const { accessToken, refreshToken } = await userService.refreshToken(token);
+    console.log({ accessToken, refreshToken });
     res.cookie("jwt_access", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -82,6 +85,7 @@ const refresh = async (req: Request, res: Response, next: NextFunction) => {
       status: 200,
     });
   } catch (error) {
+    console.log({refreshTokenError: error});
     next(error);
   }
 };

@@ -33,6 +33,7 @@ model Token {
 
 model Form {
   id        Int         @id @default(autoincrement())
+  name      String
   config    FormConfig?
   userId    String
   user      User        @relation(fields: [userId], references: [id])
@@ -43,7 +44,6 @@ model Form {
 
 model FormConfig {
   id          String         @id @default(cuid())
-  name        String
   title       Json
   description Json?          @default("null")
   questions   FormQuestion[]

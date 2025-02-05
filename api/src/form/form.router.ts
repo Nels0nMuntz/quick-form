@@ -5,6 +5,12 @@ import formController from "./form.controller";
 export const formRouter = Router();
 
 formRouter.get(
+  "/",
+  authenticateWith(authStrategies.jwt),
+  formController.getAll
+);
+
+formRouter.get(
   "/:id",
   authenticateWith(authStrategies.jwt),
   formController.get

@@ -1,5 +1,6 @@
 export interface FormEntity {
   id: number;
+  name: string;
   config: FormConfig;
   createdAt: Date;
   updatedAt: Date;
@@ -8,7 +9,6 @@ export interface FormEntity {
 
 interface FormConfig {
   id: string;
-  name: string;
   title: object;
   description?: object;
   questions: FormQuestion[];

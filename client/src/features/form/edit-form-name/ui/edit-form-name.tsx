@@ -11,10 +11,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { editFormNameSchema } from "../model/schema/editFormNameSchema";
-import { useFormName } from "@/shared/model";
+import { useFormActions, useFormName } from "@/shared/model";
 
 export function FormName() {
   const name = useFormName();
+  const { setName } = useFormActions();
   const form = useForm<z.infer<typeof editFormNameSchema>>({
     resolver: zodResolver(editFormNameSchema),
     defaultValues: {
@@ -33,8 +34,9 @@ export function FormName() {
             <FormItem>
               <FormControl>
                 <Input
-                  className="border-transparent font-medium shadow-none focus:shadow-sm md:text-2xl"
                   {...field}
+                  className="border-transparent font-medium shadow-none focus:shadow-sm md:text-2xl"
+                  onBlur={(e) => setName(e.target.value)}
                 />
               </FormControl>
               <FormMessage className="text-sm" />

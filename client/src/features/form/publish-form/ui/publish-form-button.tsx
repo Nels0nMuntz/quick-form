@@ -16,8 +16,8 @@ export function PublishFormButton() {
   const description = useFormDescription();
   const questions = useFormQuestions();
   const data: PublishFormRequest = {
+    name,
     config: {
-      name,
       title,
       description,
       questions,
