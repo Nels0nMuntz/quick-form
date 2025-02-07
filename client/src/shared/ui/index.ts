@@ -10,6 +10,7 @@ export * from "./shadcn-ui/switch";
 export * from "./shadcn-ui/dropdown-menu";
 export * from "./shadcn-ui/checkbox";
 export * from "./shadcn-ui/select";
+export * from "./shadcn-ui/table";
 export { Button as BaseButton } from "./shadcn-ui/button";
 
 export { Icon } from "./icon/icon";

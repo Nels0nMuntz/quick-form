@@ -4,9 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { appConfig } from "@/app-root/lib";
 import { TokenPayload } from "@/shared/api";
 
-async function decrypt(token: string, secret: string, tokenType: string) {
-  console.log({token, secret, tokenType});
-  
+async function decrypt(token: string, secret: string) {
   try {
     const encodedKey = new TextEncoder().encode(secret);
     const { payload } = await jwtVerify<TokenPayload>(token, encodedKey, {
@@ -14,12 +12,12 @@ async function decrypt(token: string, secret: string, tokenType: string) {
     });
     return payload;
   } catch (error) {
-    console.log(`Failed to verify ${tokenType} token: `);
+    console.log(`Failed to verify token: `);
   }
 }
 
-async function validateToken(token: string, secret: string, tokenType: string) {
-  const payload = await decrypt(token, secret, tokenType);
+async function validateToken(token: string, secret: string) {
+  const payload = await decrypt(token, secret);
 
   if (!payload) return false;
 
@@ -37,11 +35,11 @@ async function validateToken(token: string, secret: string, tokenType: string) {
 }
 
 export function validateAccessToken(token: string) {
-  return validateToken(token, appConfig.accessTokenSecret, "access");
+  return validateToken(token, appConfig.accessTokenSecret);
 }
 
 export function validateRefreshToken(token: string) {
-  return validateToken(token, appConfig.refreshTokenSecret, "refresh");
+  return validateToken(token, appConfig.refreshTokenSecret);
 }
 
 export function closeSession(req: NextRequest) {

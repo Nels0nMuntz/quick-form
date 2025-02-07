@@ -1,4 +1,4 @@
-import { ICONS, IconsProps } from "@/shared/constants";
+import { ICONS, IconsProps } from "@/shared/lib";
 
 export type IconName = keyof typeof ICONS;
 

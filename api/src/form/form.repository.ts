@@ -1,12 +1,27 @@
-import { CurrentUser } from "../user/types/currentUser";
 import { db } from "../lib";
-import { CreateFormData } from "./types/createFormData";
+import { CurrentUser } from "../user/types/currentUser";
+import { CreateFormData } from "./schemas/createFormSchema";
 
-const findByUserId = async (userId: string) => {
+const findMany = async ({
+  userId,
+  query,
+  skip,
+  take,
+}: {
+  userId: string;
+  skip?: number;
+  take?: number;
+  query?: string;
+}) => {
   return await db.form.findMany({
     where: {
       userId,
+      name: {
+        contains: query,
+      },
     },
+    skip,
+    take,
     include: {
       config: true,
     },
@@ -77,4 +92,4 @@ const create = async (form: CreateFormData, user: CurrentUser) => {
   }
 };
 
-export default { findById, findByUserId, create };
+export default { findById, findMany, create };

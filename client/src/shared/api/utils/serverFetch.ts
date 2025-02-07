@@ -4,22 +4,28 @@ import { appConfig } from "@/app-root/lib";
 import { API_ENDPOINTS } from "../constants/apiEndpoints";
 import { FetchResponse } from "../types/fetchResponse";
 import { ApiResponse } from "../types/apiResponse";
+import { objectToQueryParams } from "./objectToQueryParams";
 
 type RequestUrl = keyof typeof API_ENDPOINTS;
+type RequestParams = Record<string, any>;
+type RequestOptions = RequestInit & { params?: RequestParams };
 
 type HTTPMethod = "GET" | "POST";
 type HTTPClient = (
   method: HTTPMethod,
 ) => <ResponseData = any, ErrorDetails = any>(
   url: RequestUrl,
-  options?: RequestInit,
+  options?: RequestOptions,
 ) => Promise<FetchResponse<ApiResponse<ResponseData, ErrorDetails>>>;
 
 const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
     try {
+      const queryParams = options?.params
+      ? `?${objectToQueryParams(options.params)}`
+      : "";
       const requestCookies = await cookies();
-      const response = await fetch(`${appConfig.apiUrl}${API_ENDPOINTS[url]}`, {
+      const response = await fetch(`${appConfig.apiUrl}${API_ENDPOINTS[url]}${queryParams}`, {
         method: method,
         headers: {
           "Content-Type": "application/json",
@@ -57,13 +63,13 @@ const httpClient: HTTPClient = (method) => {
 
 export const serverGet = async <ResponseData = any, ErrorDetails = any>(
   url: RequestUrl,
-  options?: RequestInit,
+  options?: RequestOptions,
 ) => httpClient("GET")<ResponseData, ErrorDetails>(url, options);
 
 export const serverPost = async <ResponseData = any, ErrorDetails = any>(
   url: RequestUrl,
   body: any,
-  options?: RequestInit,
+  options?: RequestOptions,
 ) => {
   return httpClient("POST")<ResponseData, ErrorDetails>(url, {
     body: JSON.stringify(body),

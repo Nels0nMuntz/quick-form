@@ -6,7 +6,7 @@ import { BadRequestError } from "../utils";
 
 const generate = (payload: TokenPayload): TokenPair => {
   const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET!, {
-    expiresIn: 10,
+    expiresIn: 60,
     algorithm: "HS256",
   });
   const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET!, {

@@ -1,12 +1,12 @@
 import { clientFetch } from "@/shared/api";
 import { FetchFormsRequest } from "../model/types/fetchFormsRequest";
-import { Form } from "../model/types/form";
+import { FetchFormsResponse } from "../model/types/fetchFormsResponse";
 
 export const fetchForms = (
   options: FetchFormsRequest,
   signal?: AbortSignal | null,
 ) => {
-  return clientFetch.get<Form[]>("forms", {
+  return clientFetch.get<FetchFormsResponse>("forms", {
     params: options,
     signal,
   });

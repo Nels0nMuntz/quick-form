@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { FetchFormsRequest } from "@/entities/form";
-import { fetchForms } from "@/entities/form/api/fetchForms";
+import { fetchForms } from "@/entities/form";
 import { sleep } from "@/shared/lib";
 
 export const useSearchQuery = (options: FetchFormsRequest) => {

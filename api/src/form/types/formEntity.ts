@@ -7,14 +7,14 @@ export interface FormEntity {
   endsAt: Date | null;
 }
 
-interface FormConfig {
+export interface FormConfig {
   id: string;
   title: object;
   description?: object;
   questions: FormQuestion[];
 }
 
-interface FormQuestion {
+export interface FormQuestion {
   id: string;
   title: object;
   type: FormQuestionsType;
@@ -24,7 +24,7 @@ interface FormQuestion {
   updatedAt: Date;
 }
 
-interface FormQuestionOption {
+export interface FormQuestionOption {
   id: string;
   value: string;
 }

@@ -1,12 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { ApiResponse } from "../utils";
-import { createUserDataMapper } from "./dataMappers/createFormDataMapper";
 import formService from "./form.service";
 import userService from "../user/user.service";
+import { createFormSchema } from "./schemas/createFormSchema";
+import { getAllSchema } from "./schemas/getAllSchema";
+import { getByIdSchema } from "./schemas/getByIdSchema";
 
-const get = async (req: Request, res: Response, next: NextFunction) => {
+const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const formId = Number(req.params.id);
+    const formId = getByIdSchema.parse(req.params);
     const form = await formService.get(formId);
     ApiResponse.sendSuccessResponse({
       res,
@@ -20,8 +22,10 @@ const get = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
+
     const userId = req?.user?.id as string;
-    const forms = await formService.getAll(userId);
+    const params = getAllSchema.parse(req.params);
+    const forms = await formService.getAll(userId, params);
     ApiResponse.sendSuccessResponse({
       res,
       status: 200,
@@ -35,7 +39,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await userService.getCurrent(req?.user?.email!);
-    const form = createUserDataMapper(req.body);
+    const form = createFormSchema.parse(req.body)
     await formService.create(form, user);
     ApiResponse.sendSuccessResponse({
       res,
@@ -46,4 +50,4 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { get, getAll, create };
+export default { getOne, getAll, create };

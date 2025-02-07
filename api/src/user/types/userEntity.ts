@@ -6,6 +6,6 @@ export interface UserEntity {
   full_name: string;
   password_hash: string;
   forms: FormEntity[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
