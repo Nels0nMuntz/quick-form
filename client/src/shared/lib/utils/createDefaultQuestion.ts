@@ -28,18 +28,21 @@ export const createDefaultQuestion = ({ type, id, title }: Options) => {
         id: questionId,
         type,
         title: questinTitle,
+        required: false,
       } as FormQuestion<"Short text">;
     case "Long text":
       return {
         id: questionId,
         type: "Long text",
         title: questinTitle,
+        required: false,
       } as FormQuestion<"Long text">;
     case "Checkbox":
       return {
         id: questionId,
         type: "Checkbox",
         title: questinTitle,
+        required: false,
         ...DFAULT_OPTIONS["Checkbox"],
       } as FormQuestion<"Checkbox">;
     case "Dropdown":
@@ -47,6 +50,7 @@ export const createDefaultQuestion = ({ type, id, title }: Options) => {
         id: questionId,
         type: "Dropdown",
         title: questinTitle,
+        required: false,
         ...DFAULT_OPTIONS["Dropdown"],
       } as FormQuestion<"Dropdown">;
   }

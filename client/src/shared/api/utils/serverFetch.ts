@@ -8,7 +8,7 @@ import { objectToQueryParams } from "./objectToQueryParams";
 
 type RequestUrl = keyof typeof API_ENDPOINTS;
 type RequestParams = Record<string, any>;
-type RequestOptions = RequestInit & { params?: RequestParams };
+type RequestOptions = RequestInit & { slug?: string; query?: RequestParams };
 
 type HTTPMethod = "GET" | "POST";
 type HTTPClient = (
@@ -21,19 +21,23 @@ type HTTPClient = (
 const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
     try {
-      const queryParams = options?.params
-      ? `?${objectToQueryParams(options.params)}`
-      : "";
+      const params = options?.slug ? `/${options?.slug}` : ""
+      const query = options?.query
+        ? `?${objectToQueryParams(options.query)}`
+        : "";
       const requestCookies = await cookies();
-      const response = await fetch(`${appConfig.apiUrl}${API_ENDPOINTS[url]}${queryParams}`, {
-        method: method,
-        headers: {
-          "Content-Type": "application/json",
-          Cookie: requestCookies.toString(),
-          ...options?.headers,
+      const response = await fetch(
+        `${appConfig.apiUrl}${API_ENDPOINTS[url]}${params}${query}`,
+        {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: requestCookies.toString(),
+            ...options?.headers,
+          },
+          ...options,
         },
-        ...options,
-      });
+      );
 
       const contentType = response.headers.get("content-type");
       if (contentType && contentType.includes("application/json")) {

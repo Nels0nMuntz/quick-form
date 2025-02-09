@@ -6,7 +6,7 @@ import { objectToQueryParams } from "./objectToQueryParams";
 
 type RequestUrl = keyof typeof API_ENDPOINTS;
 type RequestParams = Record<string, any>;
-type RequestOptions = RequestInit & { params?: RequestParams };
+type RequestOptions = RequestInit & { slug?: string; query?: RequestParams };
 
 type HTTPMethod = "GET" | "POST";
 export type HTTPClient = (
@@ -20,11 +20,12 @@ export type HTTPClient = (
 
 const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
-    const queryParams = options?.params
-      ? `?${objectToQueryParams(options.params)}`
+    const params = options?.slug ? `/${options?.slug}` : ""
+    const query = options?.query
+      ? `?${objectToQueryParams(options.query)}`
       : "";
     const originalRequest = new Request(
-      `${appConfig.apiUrl}${API_ENDPOINTS[url]}${queryParams}`,
+      `${appConfig.apiUrl}${API_ENDPOINTS[url]}${params}${query}`,
       {
         method: method,
         credentials: "include",
@@ -36,23 +37,21 @@ const httpClient: HTTPClient = (method) => {
       },
     );
     let response = await fetch(originalRequest);
-
     if (response.status === 401) {
       const refreshResponse = await fetch(
         `${appConfig.apiUrl}${API_ENDPOINTS.refresh}`,
         {
-          method: "POST",
+          method: "GET",
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
             ...options?.headers,
           },
-          ...options,
         },
       );
 
       if (!refreshResponse.ok) {
-        // window.location.href = "/sign-in";
+        window.location.href = "/sign-in";
         return {
           ok: false,
           status: refreshResponse.status,

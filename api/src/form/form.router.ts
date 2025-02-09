@@ -10,14 +10,14 @@ export const formRouter = Router();
 formRouter.get(
   "/",
   authenticateWith(authStrategies.jwt),
-  validate(getAllSchema),
+  validate(getAllSchema, (req) => req.query),
   formController.getAll
 );
 
 formRouter.get(
   "/:id",
   authenticateWith(authStrategies.jwt),
-  validate(getByIdSchema),
+  validate(getByIdSchema, (req) => req.params),
   formController.getOne
 );
 

@@ -7,7 +7,7 @@ export const fetchForms = (
   signal?: AbortSignal | null,
 ) => {
   return clientFetch.get<FetchFormsResponse>("forms", {
-    params: options,
+    query: options,
     signal,
   });
 };

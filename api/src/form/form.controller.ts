@@ -24,8 +24,8 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
 
     const userId = req?.user?.id as string;
-    const params = getAllSchema.parse(req.params);
-    const forms = await formService.getAll(userId, params);
+    const query = getAllSchema.parse(req.query);
+    const forms = await formService.getAll(userId, query);
     ApiResponse.sendSuccessResponse({
       res,
       status: 200,

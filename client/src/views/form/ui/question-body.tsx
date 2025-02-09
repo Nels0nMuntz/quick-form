@@ -114,6 +114,7 @@ export const DropdownQuestionBody: React.FC<QuestionBodyProps> = ({
   question,
   control,
 }) => {
+  const { options } = question as FormQuestion<"Dropdown">;
   return (
     <FormField
       control={control}
@@ -123,13 +124,15 @@ export const DropdownQuestionBody: React.FC<QuestionBodyProps> = ({
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder="Select a verified email to display" />
+                <SelectValue placeholder="Choose" />
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="m@example.com">m@example.com</SelectItem>
-              <SelectItem value="m@google.com">m@google.com</SelectItem>
-              <SelectItem value="m@support.com">m@support.com</SelectItem>
+              {options.map(({ id, value }) => (
+                <SelectItem key={id} value={value}>
+                  {value}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <FormMessage />

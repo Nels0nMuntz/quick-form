@@ -1,11 +1,15 @@
-import { Form } from "@/entities/form";
-import { serverGet } from "@/shared/api";
+import { fetchFormServer } from "@/entities/form";
 import { generateHTML } from "@/shared/lib";
 import { FormWrapper, Paper } from "@/shared/ui";
 import { Questions } from "./questions";
 
-export async function FormPage() {
-  const response = await serverGet<Form>("form");
+interface Props {
+  params: Promise<{ id: string }>;
+}
+
+export async function FormPage({ params }: Props) {
+  const { id } = await params;
+  const response = await fetchFormServer(id);
 
   if (!response.ok || !response.data.success) {
     return <div>Something went wrong</div>;
@@ -25,7 +29,7 @@ export async function FormPage() {
           dangerouslySetInnerHTML={{ __html: `${title}${description}` }}
         ></div>
       </Paper>
-      <Questions questions={config.questions}/>
+      <Questions questions={config.questions} />
     </FormWrapper>
   );
 }

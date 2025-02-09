@@ -63,8 +63,7 @@ export const DropdownQuestionBody: React.FC<QuestionBodyProps> = memo(
   ({ questionId }) => {
     const question = useFormQuestion(questionId) as FormQuestion<"Checkbox">;
     const [open, setOpen] = useState(false);
-    const [activeOption, setActiveOption] = useState(question.options[0].value);
-    const { updateOption } = useFormActions();
+    const [activeOption, setActiveOption] = useState("Choose");
     const handleOpen = (open: boolean) => setOpen(open);
     const handleClick = (value: string) => {
       setActiveOption(value);

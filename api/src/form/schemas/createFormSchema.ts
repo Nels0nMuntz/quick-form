@@ -2,25 +2,25 @@ import { z } from "zod";
 
 export const createFormSchema = z.object({
   name: z.string().nonempty(),
-  endsAt: z.date().nullable(),
+  endsAt: z.string().nullable(),
   config: z.object({
-    title: z.object({}).required(),
-    description: z.object({}).optional(),
+    title: z.record(z.any(), z.any()),
+    description: z.record(z.any(), z.any()),
     questions: z.array(
       z.object({
         id: z.string(),
-        title: z.object({}),
+        title: z.record(z.any(), z.any()),
         type: z.enum(["Short text", "Long text", "Checkbox", "Dropdown"]),
-        createdAt: z.date(),
-        updatedAt: z.date(),
+        createdAt: z.date().optional(),
+        updatedAt: z.date().optional(),
         required: z.boolean(),
-        formConfigId: z.string(),
+        formConfigId: z.string().optional(),
         options: z.array(
           z.object({
             id: z.string(),
             value: z.string(),
           })
-        ),
+        ).optional(),
       })
     ),
   }),

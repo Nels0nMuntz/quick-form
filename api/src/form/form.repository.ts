@@ -4,20 +4,20 @@ import { CreateFormData } from "./schemas/createFormSchema";
 
 const findMany = async ({
   userId,
-  query,
+  search,
   skip,
   take,
 }: {
   userId: string;
   skip?: number;
   take?: number;
-  query?: string;
+  search?: string;
 }) => {
   return await db.form.findMany({
     where: {
       userId,
       name: {
-        contains: query,
+        contains: search,
       },
     },
     skip,

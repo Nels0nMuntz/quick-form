@@ -2,7 +2,10 @@ import { Request, Response, NextFunction } from "express";
 import { z, ZodError } from "zod";
 import { InternalServerError, UnprocessableEntityError } from "../../utils";
 
-export function validate(schema: z.ZodObject<any, any>, extractor?: (req: Request) => any) {
+export function validate(
+  schema: z.ZodObject<any, any>,
+  extractor?: (req: Request) => any
+) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       const data = extractor ? extractor(req) : req.body;

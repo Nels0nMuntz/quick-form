@@ -9,18 +9,18 @@ const get = async (data: GetByIdData) => {
   return await formRepository.findById(formId);
 };
 
-const getAll = async (userId: string, params: GetAllFormData) => {
+const getAll = async (userId: string, query: GetAllFormData) => {
   const forms = await formRepository.findMany({
     userId,
-    skip: Number(params.skip) || 0,
-    take: Number(params.take) || undefined,
-    query: params.query || "",
+    skip: Number(query.skip) || 0,
+    take: Number(query.take) || undefined,
+    search: query.search || "",
   });
   const totalCount = (await formRepository.findMany({ userId })).length;
   return {
     forms,
-    totalCount
-  }
+    totalCount,
+  };
 };
 
 const create = async (form: CreateFormData, user: CurrentUser) => {
