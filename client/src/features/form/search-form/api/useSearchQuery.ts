@@ -12,5 +12,6 @@ export const useSearchQuery = (options: FetchFormsRequest) => {
         return fetchForms(options, signal);
       }
     },
+    enabled: !!options.query,
   });
 };

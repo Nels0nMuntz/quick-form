@@ -4,6 +4,7 @@ export { createDefaultQuestion } from "./utils/createDefaultQuestion";
 export { buildJsonContent } from "./utils/buildJsonContent";
 export { generateUniqueId } from "./utils/generateUniqueId";
 export { createQuestionFactory } from "./utils/questionFactory";
+export { getQueryClient } from "./utils/getQueryClient";
 export { cn } from "./shadcn-utils";
 
 export {

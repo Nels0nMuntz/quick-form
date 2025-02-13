@@ -1,5 +1,6 @@
 "use client";
 import {
+  useFormActions,
   useFormDescription,
   useFormName,
   useFormQuestions,
@@ -9,12 +10,15 @@ import { Button } from "@/shared/ui";
 import { toast } from "@/shared/lib";
 import { usePublishForm } from "../api/usePublishForm";
 import { PublishFormRequest } from "../model/publishFormRequest";
+import { useRouter } from "next/navigation";
 
 export function PublishFormButton() {
+  const router = useRouter();
   const name = useFormName();
   const title = useFormTitle();
   const description = useFormDescription();
   const questions = useFormQuestions();
+  const { resetStore } = useFormActions();
   const data: PublishFormRequest = {
     name,
     config: {
@@ -26,11 +30,14 @@ export function PublishFormButton() {
   };
 
   const { mutate, isPending } = usePublishForm(data, {
-    onSuccess: () =>
+    onSuccess: () => {
       toast({
         title: "Success",
         description: "The form has been successfuly published",
-      }),
+      });
+      router.replace("/dashboard");
+      resetStore();
+    },
     onError: (error) =>
       toast({
         title: "Failed",

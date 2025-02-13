@@ -1,3 +1,4 @@
+"use client";
 import { clientFetch } from "@/shared/api";
 import { FetchFormsRequest } from "../model/types/fetchFormsRequest";
 import { FetchFormsResponse } from "../model/types/fetchFormsResponse";

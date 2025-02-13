@@ -6,9 +6,9 @@ import { objectToQueryParams } from "./objectToQueryParams";
 
 type RequestUrl = keyof typeof API_ENDPOINTS;
 type RequestParams = Record<string, any>;
-type RequestOptions = RequestInit & { slug?: string; query?: RequestParams };
+type RequestOptions = RequestInit & { params?: string; query?: RequestParams };
 
-type HTTPMethod = "GET" | "POST";
+type HTTPMethod = "GET" | "POST" | "DELETE";
 export type HTTPClient = (
   method: HTTPMethod,
 ) => <ResponseData = any, ErrorDetails = any>(
@@ -16,11 +16,9 @@ export type HTTPClient = (
   options?: RequestOptions,
 ) => Promise<FetchResponse<ApiResponse<ResponseData, ErrorDetails>>>;
 
-
-
 const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
-    const params = options?.slug ? `/${options?.slug}` : ""
+    const params = options?.params ? `/${options?.params}` : "";
     const query = options?.query
       ? `?${objectToQueryParams(options.query)}`
       : "";
@@ -57,7 +55,7 @@ const httpClient: HTTPClient = (method) => {
           status: refreshResponse.status,
           data: {
             success: false,
-            error: "User not found"
+            error: "User not found",
           },
         };
       }
@@ -73,13 +71,19 @@ const httpClient: HTTPClient = (method) => {
         status: response.status,
         data,
       };
-    } else {
+    }
+    if (response.status === 204) {
       return {
         ok: response.ok,
         status: response.status,
-        data: null,
+        data: { success: true },
       };
     }
+    return {
+      ok: response.ok,
+      status: response.status,
+      data: null,
+    };
   };
 };
 
@@ -92,7 +96,19 @@ const post = (url: RequestUrl, body: any, options?: RequestOptions) => {
   });
 };
 
+const deleteRequest = (
+  url: RequestUrl,
+  body?: any,
+  options?: RequestOptions,
+) => {
+  return httpClient("DELETE")(url, {
+    body: JSON.stringify(body),
+    ...options,
+  });
+};
+
 export const clientFetch = {
   get,
   post,
+  deleteRequest,
 };

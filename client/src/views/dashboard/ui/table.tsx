@@ -1,11 +1,14 @@
 "use client";
+import React, { useMemo } from "react";
 import {
+  ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import Link from "next/link";
-import { FetchFormsResponse } from "@/entities/form";
+import { useRouter } from "next/navigation";
+import { Form } from "@/entities/form";
 import {
   Icon,
   Table,
@@ -16,21 +19,17 @@ import {
   TableRow,
 } from "@/shared/ui";
 import { formatTableData } from "../lib/utils/formatTableData";
+import { DeleteFormButton } from "@/features/form";
 import { useTableDataQuery } from "../api/hooks/useTableDataQuery";
 
-interface Props {
-  initialData: FetchFormsResponse["forms"];
-}
-
-export function FormsTable({ initialData }: Props) {
-  const { data = [] } = useTableDataQuery({
-    skip: 0,
+export function FormsTable() {
+  const router = useRouter();
+  const { data = [], refetch } = useTableDataQuery({
     take: 10,
-    initialData: initialData,
+    skip: 0,
   });
-  const formattedItems = formatTableData(data);
-  const table = useReactTable({
-    columns: [
+  const columns: ColumnDef<Form, any>[] = useMemo(
+    () => [
       {
         header: "Form Name",
         accessorKey: "name",
@@ -54,38 +53,62 @@ export function FormsTable({ initialData }: Props) {
           </Link>
         ),
       },
+      {
+        header: "",
+        accessorKey: "delete",
+        cell: (info) => (
+          <DeleteFormButton
+            formId={info.row.original.id}
+            onSuccess={() => {
+              refetch();
+              router.refresh();
+            }}
+          />
+        ),
+      },
     ],
+    [],
+  );
+  const formattedItems = useMemo(() => formatTableData(data), [data]);
+  const table = useReactTable({
+    columns: columns,
     data: formattedItems,
     getCoreRowModel: getCoreRowModel(),
   });
-  const { getHeaderGroups, getRowModel } = table;
+  const headerGroups = useMemo(
+    () => table.getHeaderGroups(),
+    [table, formattedItems],
+  );
+  const rows = useMemo(() => table.getRowModel().rows, [table, formattedItems]);
   return (
-    <Table>
-      <TableHeader>
-        {getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
-              <TableHead key={header.id}>
-                {flexRender(
-                  header.column.columnDef.header,
-                  header.getContext(),
-                )}
-              </TableHead>
-            ))}
-          </TableRow>
-        ))}
-      </TableHeader>
-      <TableBody>
-        {getRowModel().rows.map((row) => (
-          <TableRow key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <TableCell key={cell.id}>
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+    <React.Fragment>
+      <Table>
+        <TableHeader>
+          {headerGroups.map((headerGroup) => (
+            <TableRow key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <TableHead key={header.id}>
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext(),
+                  )}
+                </TableHead>
+              ))}
+            </TableRow>
+          ))}
+        </TableHeader>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow key={row.id} className="hover:bg-sky/10">
+              {row.getVisibleCells().map((cell) => (
+                <TableCell key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </React.Fragment>
   );
 }

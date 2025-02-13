@@ -7,7 +7,6 @@ import {
   buildJsonContent,
   generateUniqueId,
 } from "@/shared/lib";
-import { EditorJSONContent } from "../types/EditorJSONContent";
 
 interface FormState {
   name: string;
@@ -30,6 +29,7 @@ interface FormActions {
     addOption: (id: string) => void;
     updateOption: (questionId: string, optionId: string, value: string) => void;
     deleteOption: (questionId: string, optionId: string) => void;
+    resetStore: () => void;
   };
 }
 
@@ -38,36 +38,42 @@ type FormStore = FormState & FormActions;
 const DFAULT_FORM_TITLE_TEXT = "Title";
 const DFAULT_FORM_DESCRIPTION_TEXT = "Description";
 
+
+const question1 = createDefaultQuestion({
+  type: "Short text",
+});
+const question2 = createDefaultQuestion({
+  type: "Long text",
+});
+const question3 = createDefaultQuestion({
+  type: "Checkbox",
+});
+const question4 = createDefaultQuestion({
+  type: "Dropdown",
+});
+
+const initialState: FormState = {
+  name: "Untitled Form",
+  title: buildJsonContent({
+    type: "heading",
+    level: 1,
+    text: DFAULT_FORM_TITLE_TEXT,
+  }),
+  description: buildJsonContent({
+    type: "paragraph",
+    text: DFAULT_FORM_DESCRIPTION_TEXT,
+  }),
+  questions: {
+    [question1.id]: question1,
+    [question2.id]: question2,
+    [question3.id]: question3,
+    [question4.id]: question4,
+  },
+}
+
 const useCreateFormStore = create<FormStore>()((set) => {
-  const question1 = createDefaultQuestion({
-    type: "Short text",
-  });
-  const question2 = createDefaultQuestion({
-    type: "Long text",
-  });
-  const question3 = createDefaultQuestion({
-    type: "Checkbox",
-  });
-  const question4 = createDefaultQuestion({
-    type: "Dropdown",
-  });
   return {
-    name: "Untitled Form",
-    title: buildJsonContent({
-      type: "heading",
-      level: 1,
-      text: DFAULT_FORM_TITLE_TEXT,
-    }),
-    description: buildJsonContent({
-      type: "paragraph",
-      text: DFAULT_FORM_DESCRIPTION_TEXT,
-    }),
-    questions: {
-      [question1.id]: question1,
-      [question2.id]: question2,
-      [question3.id]: question3,
-      [question4.id]: question4,
-    },
+    ...initialState,
     actions: {
       setName: (value) => set({ name: value }),
       setTitle: (json) => set({ title: json }),
@@ -210,6 +216,14 @@ const useCreateFormStore = create<FormStore>()((set) => {
           },
         }));
       },
+      resetStore: () => {
+        set({
+          name: initialState.name,
+          title: initialState.title,
+          description: initialState.description,
+          questions: initialState.questions,
+        })
+      }
     },
   };
 });

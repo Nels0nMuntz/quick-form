@@ -4,6 +4,7 @@ import formController from "./form.controller";
 import { getAllSchema } from "./schemas/getAllSchema";
 import { getByIdSchema } from "./schemas/getByIdSchema";
 import { createFormSchema } from "./schemas/createFormSchema";
+import { removeSchema } from "./schemas/removeSchema";
 
 export const formRouter = Router();
 
@@ -26,4 +27,11 @@ formRouter.post(
   authenticateWith(authStrategies.jwt),
   validate(createFormSchema),
   formController.create
+);
+
+formRouter.delete(
+  "/:id",
+  authenticateWith(authStrategies.jwt),
+  validate(removeSchema, (req) => req.params),
+  formController.remove
 );

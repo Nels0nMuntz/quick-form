@@ -20,6 +20,7 @@ export default {
         "blue-light": "var(--color-blue-light)",
         sky: "var(--color-sky)",
         "sky/85": "var(--color-sky-85)",
+        "sky/10": "var(--color-sky-10)",
         mint: "var(--color-mint)",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",

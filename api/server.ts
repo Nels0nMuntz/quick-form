@@ -12,7 +12,6 @@ async function main() {
     });
     await db.$disconnect();
   } catch (error) {
-    // console.log(JSON.stringify({error}, null, 2));
     await db.$disconnect();
     process.exit(1);
   }

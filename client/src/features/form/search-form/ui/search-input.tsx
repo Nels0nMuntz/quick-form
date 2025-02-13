@@ -13,7 +13,7 @@ export function SearchInput() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value);
   useEffect(() => {
-    if (data && data.data.success) setSearchResult(data.data.data);
+    if (data && data.data.success) setSearchResult(data.data.data.forms);
   }, [data]);
   return (
     <div className="relative flex flex-grow justify-end">

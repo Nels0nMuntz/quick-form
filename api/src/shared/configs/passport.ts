@@ -50,7 +50,6 @@ export const registerPassportStrategies = () => {
         secretOrKey: process.env.JWT_ACCESS_SECRET || "",
       },
       async (jwt_payload, done) => {
-        console.log({ jwt_payload });
         try {
           const { id, exp } = jwt_payload;
           if (Date.now() >= exp * 1000) {
@@ -61,7 +60,6 @@ export const registerPassportStrategies = () => {
             where: { id },
           });
           if (user) {
-            console.log({ user });
             return done(null, user);
           } else {
             console.log("no user");

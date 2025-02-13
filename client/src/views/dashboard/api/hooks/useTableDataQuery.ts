@@ -1,21 +1,28 @@
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import { fetchForms, Form } from "@/entities/form";
+import { clientFetch } from "@/shared/api";
 
 interface Options {
-  take: number;
-  skip: number;
-  initialData?: Form[];
+  take?: number;
+  skip?: number;
 }
 
-export const useTableDataQuery = ({ skip, take, initialData }: Options) => {
+const defaultQuery = {
+  take: 2,
+  skip: 0,
+};
+
+export const useTableDataQuery = (optins?: Options) => {
+  const query = optins || defaultQuery;
   return useQuery({
-    initialData,
-    queryKey: ["forms-data", skip, take],
+    queryKey: ["forms-data", query],
     queryFn: async () => {
-      const response = await fetchForms({ take, skip });
-      if (!response.ok || !response.data.success)
-        throw Error("Failed to fetch forms");
-      return response.data.data.forms;
+      const respomse = await fetchForms(query);
+      if (respomse.ok && respomse.data.success) {
+        return respomse.data.data.forms;
+      }
+      return [];
     },
   });
 };

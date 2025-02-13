@@ -4,7 +4,7 @@ import { ApiError } from "../apiErrors/ApiError";
 const sendSuccessResponse = ({
   res,
   status,
-  data,
+  data = { success: true },
 }: {
   res: Response;
   status: number;

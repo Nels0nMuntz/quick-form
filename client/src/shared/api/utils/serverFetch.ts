@@ -8,7 +8,7 @@ import { objectToQueryParams } from "./objectToQueryParams";
 
 type RequestUrl = keyof typeof API_ENDPOINTS;
 type RequestParams = Record<string, any>;
-type RequestOptions = RequestInit & { slug?: string; query?: RequestParams };
+type RequestOptions = RequestInit & { params?: string; query?: RequestParams };
 
 type HTTPMethod = "GET" | "POST";
 type HTTPClient = (
@@ -21,7 +21,7 @@ type HTTPClient = (
 const httpClient: HTTPClient = (method) => {
   return async (url, options) => {
     try {
-      const params = options?.slug ? `/${options?.slug}` : ""
+      const params = options?.params ? `/${options?.params}` : ""
       const query = options?.query
         ? `?${objectToQueryParams(options.query)}`
         : "";

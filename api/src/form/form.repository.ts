@@ -92,4 +92,12 @@ const create = async (form: CreateFormData, user: CurrentUser) => {
   }
 };
 
-export default { findById, findMany, create };
+const remove = async (formId: number) => {
+  return await db.form.delete({
+    where: {
+      id: formId,
+    },
+  });
+};
+
+export default { findById, findMany, create, remove };

@@ -5,6 +5,7 @@ import userService from "../user/user.service";
 import { createFormSchema } from "./schemas/createFormSchema";
 import { getAllSchema } from "./schemas/getAllSchema";
 import { getByIdSchema } from "./schemas/getByIdSchema";
+import { removeSchema } from "./schemas/removeSchema";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -22,7 +23,6 @@ const getOne = async (req: Request, res: Response, next: NextFunction) => {
 
 const getAll = async (req: Request, res: Response, next: NextFunction) => {
   try {
-
     const userId = req?.user?.id as string;
     const query = getAllSchema.parse(req.query);
     const forms = await formService.getAll(userId, query);
@@ -39,7 +39,7 @@ const getAll = async (req: Request, res: Response, next: NextFunction) => {
 const create = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = await userService.getCurrent(req?.user?.email!);
-    const form = createFormSchema.parse(req.body)
+    const form = createFormSchema.parse(req.body);
     await formService.create(form, user);
     ApiResponse.sendSuccessResponse({
       res,
@@ -50,4 +50,17 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getOne, getAll, create };
+const remove = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const formId = removeSchema.parse(req.params);
+    await formService.remove(formId);
+    ApiResponse.sendSuccessResponse({
+      res,
+      status: 204,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { getOne, getAll, create, remove };

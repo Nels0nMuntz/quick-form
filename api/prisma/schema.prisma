@@ -36,7 +36,7 @@ model Form {
   name      String
   config    FormConfig?
   userId    String
-  user      User        @relation(fields: [userId], references: [id])
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   endsAt    DateTime?
@@ -48,7 +48,7 @@ model FormConfig {
   description Json?          @default("null")
   questions   FormQuestion[]
   formId      Int            @unique
-  form        Form           @relation(fields: [formId], references: [id])
+  form        Form           @relation(fields: [formId], references: [id], onDelete: Cascade)
 }
 
 model FormQuestion {
@@ -60,12 +60,12 @@ model FormQuestion {
   required     Boolean?
   createdAt    DateTime             @default(now())
   updatedAt    DateTime             @updatedAt
-  formConfig   FormConfig           @relation(fields: [formConfigId], references: [id])
+  formConfig   FormConfig           @relation(fields: [formConfigId], references: [id], onDelete: Cascade)
 }
 
 model FormQuestionOption {
   id           String       @id @default(cuid())
   questionId   String
   value        String
-  formQuestion FormQuestion @relation(fields: [questionId], references: [id])
+  formQuestion FormQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
