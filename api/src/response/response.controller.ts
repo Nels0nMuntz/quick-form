@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { createResponseSchema } from "./schemas/createResponseSchema";
 import responseService from "./response.service";
-import ApiResponse from "src/utils/apiResponse/apiResponse";
+import ApiResponse from "../utils/apiResponse/apiResponse";
 import { getResponseSchema } from "./schemas/getResponseSchema";
 import { removeResponseSchema } from "./schemas/removeResponseSchema";
 

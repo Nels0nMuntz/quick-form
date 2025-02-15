@@ -6,11 +6,11 @@ import {
 } from "./shared/lib";
 import { appConfig } from "./app-root/lib";
 
-const publicRoutes = ["/sign-in", "/sign-up", "/"];
+const publicRoutes = ["/sign-in", "/sign-up", "/public-form", "/"];
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const isPublicRoute = publicRoutes.includes(path);
+  const isPublicRoute = publicRoutes.some((route) => path.includes(route));
 
   const accessToken = req.cookies.get("jwt_access")?.value;
 
@@ -64,16 +64,18 @@ export default async function middleware(req: NextRequest) {
   }
 
   const setCookiesHeaders = refreshResponse.headers.getSetCookie();
-  req.headers.set("Cookie", setCookiesHeaders.join("; "))
+  req.headers.set("Cookie", setCookiesHeaders.join("; "));
   const response = NextResponse.next({
     request: {
-      headers: new Headers(req.headers)
-    }
+      headers: new Headers(req.headers),
+    },
   });
-  setCookiesHeaders.forEach(cookie => response.headers.append("Set-Cookie", cookie))
+  setCookiesHeaders.forEach((cookie) =>
+    response.headers.append("Set-Cookie", cookie),
+  );
   return response;
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|.*\\.png$).*)"],
+  matcher: ["/((?!_next/static|_next/image|.*\\.png$|public-form$).*)"],
 };
