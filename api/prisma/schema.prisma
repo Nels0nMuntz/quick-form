@@ -69,3 +69,22 @@ model FormQuestionOption {
   value        String
   formQuestion FormQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
 }
+
+model FormResponse {
+  id        String                 @id @default(cuid())
+  formId    Int                    @unique
+  responses FormQuestionResponse[]
+  createdAt DateTime               @default(now())
+  updatedAt DateTime               @updatedAt
+}
+
+model FormQuestionResponse {
+  id             String       @id @default(cuid())
+  questionId     String
+  type           String
+  response       String[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  formResponseId String
+  formResponse   FormResponse @relation(fields: [formResponseId], references: [id], onDelete: Cascade)
+}

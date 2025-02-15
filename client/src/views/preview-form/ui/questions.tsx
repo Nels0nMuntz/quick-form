@@ -26,7 +26,7 @@ export function Questions() {
   const renderItem = useCallback((item: PartialFormQuestion) => {
     const BodyComponent = questionBody[item.type];
     const body = <BodyComponent questionId={item.id} />;
-    return <QuestionClient id={item.id} body={body} />;
+    return <QuestionClient id={item.id} body={body} key={item.id}/>;
   }, []);
   return <QuestionsList items={questions} renderItem={renderItem} />;
 }
