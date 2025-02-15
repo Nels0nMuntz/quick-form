@@ -4,10 +4,15 @@ import { GetAllFormData } from "./schemas/getAllSchema";
 import { GetByIdData } from "./schemas/getByIdSchema";
 import { CreateFormData } from "./schemas/createFormSchema";
 import { RemoveData } from "./schemas/removeSchema";
+import { GetBySlugData } from "./schemas/getBySlugSchema";
 
 const get = async (data: GetByIdData) => {
   const formId = Number(data.id);
   return await formRepository.findById(formId);
+};
+
+const getPublic = async (data: GetBySlugData) => {
+  return await formRepository.findBySlug(data.slug);
 };
 
 const getAll = async (userId: string, query: GetAllFormData) => {
@@ -32,4 +37,4 @@ const remove = async (data: RemoveData) => {
   return await formRepository.remove(Number(data.id));
 };
 
-export default { get, getAll, create, remove };
+export default { get, getPublic, getAll, create, remove };

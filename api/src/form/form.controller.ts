@@ -1,16 +1,41 @@
 import { NextFunction, Request, Response } from "express";
-import { ApiResponse } from "../utils";
+import { ApiResponse, NotFoundError } from "../utils";
 import formService from "./form.service";
 import userService from "../user/user.service";
 import { createFormSchema } from "./schemas/createFormSchema";
 import { getAllSchema } from "./schemas/getAllSchema";
 import { getByIdSchema } from "./schemas/getByIdSchema";
 import { removeSchema } from "./schemas/removeSchema";
+import { getBySlugSchema } from "./schemas/getBySlugSchema";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const formId = getByIdSchema.parse(req.params);
     const form = await formService.get(formId);
+    if (!form) {
+      throw new NotFoundError("Form not found");
+    }
+    ApiResponse.sendSuccessResponse({
+      res,
+      status: 200,
+      data: form,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getOnePublic = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const data = getBySlugSchema.parse(req.params);
+    const form = await formService.getPublic(data);
+    if (!form) {
+      throw new NotFoundError("Form not found");
+    }
     ApiResponse.sendSuccessResponse({
       res,
       status: 200,
@@ -63,4 +88,4 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getOne, getAll, create, remove };
+export default { getOne, getOnePublic, getAll, create, remove };

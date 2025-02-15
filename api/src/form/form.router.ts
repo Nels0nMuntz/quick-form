@@ -5,6 +5,7 @@ import { getAllSchema } from "./schemas/getAllSchema";
 import { getByIdSchema } from "./schemas/getByIdSchema";
 import { createFormSchema } from "./schemas/createFormSchema";
 import { removeSchema } from "./schemas/removeSchema";
+import { getBySlugSchema } from "./schemas/getBySlugSchema";
 
 export const formRouter = Router();
 
@@ -20,6 +21,12 @@ formRouter.get(
   authenticateWith(authStrategies.jwt),
   validate(getByIdSchema, (req) => req.params),
   formController.getOne
+);
+
+formRouter.get(
+  "/public/:slug",
+  validate(getBySlugSchema, (req) => req.params),
+  formController.getOnePublic
 );
 
 formRouter.post(

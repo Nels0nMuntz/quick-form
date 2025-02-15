@@ -47,6 +47,25 @@ const findById = async (formId: number) => {
   });
 };
 
+const findBySlug = async (slug: string) => {
+  return await db.form.findFirst({
+    where: {
+      slug,
+    },
+    include: {
+      config: {
+        include: {
+          questions: {
+            include: {
+              options: true,
+            },
+          },
+        },
+      },
+    },
+  });
+};
+
 const create = async (form: CreateFormData, user: CurrentUser) => {
   const { name, endsAt, config } = form;
   const { title, description, questions } = config;
@@ -100,4 +119,4 @@ const remove = async (formId: number) => {
   });
 };
 
-export default { findById, findMany, create, remove };
+export default { findById, findBySlug, findMany, create, remove };
