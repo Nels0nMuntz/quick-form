@@ -5,6 +5,7 @@ export { buildJsonContent } from "./utils/buildJsonContent";
 export { generateUniqueId } from "./utils/generateUniqueId";
 export { createQuestionFactory } from "./utils/questionFactory";
 export { getQueryClient } from "./utils/getQueryClient";
+export { mapArrayToObjectByKey } from "./utils/mapArrayToObjectByKey";
 export { cn } from "./shadcn-utils";
 
 export {

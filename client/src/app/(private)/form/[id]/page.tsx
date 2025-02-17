@@ -1,9 +1,9 @@
-import { FormPage } from "@/views/form";
+import { EditFormPage } from "@/views/edit-form";
 
 export default async function Form({
   params,
 }: {
-  params: Promise<{ id: string }>
+  params: Promise<{ id: string }>;
 }) {
-  return <FormPage params={params}/>;
+  return <EditFormPage params={params} />;
 }

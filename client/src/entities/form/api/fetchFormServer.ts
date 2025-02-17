@@ -1,6 +1,6 @@
 import { serverGet } from "@/shared/api";
-import { Form } from "../model/types/form";
+import { FetchFormResponse } from "../model/types/fetchFormResponse";
 
 export const fetchFormServer = async (id: string) => {
-  return await serverGet<Form>("forms", { params: id });
+  return await serverGet<FetchFormResponse>("forms", { params: id });
 };

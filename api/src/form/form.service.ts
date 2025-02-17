@@ -5,6 +5,7 @@ import { GetByIdData } from "./schemas/getByIdSchema";
 import { CreateFormData } from "./schemas/createFormSchema";
 import { RemoveData } from "./schemas/removeSchema";
 import { GetBySlugData } from "./schemas/getBySlugSchema";
+import { UpdateFormData } from "./schemas/updateFormSchema";
 
 const get = async (data: GetByIdData) => {
   const formId = Number(data.id);
@@ -33,8 +34,13 @@ const create = async (form: CreateFormData, user: CurrentUser) => {
   return await formRepository.create(form, user);
 };
 
+const update = async (data: UpdateFormData) => {
+  await formRepository.update(data);
+  return await formRepository.findById(data.id);
+};
+
 const remove = async (data: RemoveData) => {
   return await formRepository.remove(Number(data.id));
 };
 
-export default { get, getPublic, getAll, create, remove };
+export default { get, getPublic, getAll, create, update, remove };

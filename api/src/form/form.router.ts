@@ -6,6 +6,7 @@ import { getByIdSchema } from "./schemas/getByIdSchema";
 import { createFormSchema } from "./schemas/createFormSchema";
 import { removeSchema } from "./schemas/removeSchema";
 import { getBySlugSchema } from "./schemas/getBySlugSchema";
+import { updateFormSchema } from "./schemas/updateFormSchema";
 
 export const formRouter = Router();
 
@@ -34,6 +35,13 @@ formRouter.post(
   authenticateWith(authStrategies.jwt),
   validate(createFormSchema),
   formController.create
+);
+
+formRouter.put(
+  "/",
+  authenticateWith(authStrategies.jwt),
+  validate(updateFormSchema),
+  formController.update
 );
 
 formRouter.delete(

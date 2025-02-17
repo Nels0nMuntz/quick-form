@@ -8,7 +8,7 @@ type RequestUrl = keyof typeof API_ENDPOINTS;
 type RequestParams = Record<string, any>;
 type RequestOptions = RequestInit & { params?: string; query?: RequestParams };
 
-type HTTPMethod = "GET" | "POST" | "DELETE";
+type HTTPMethod = "GET" | "POST" | "PUT" | "DELETE";
 export type HTTPClient = (
   method: HTTPMethod,
 ) => <ResponseData = any, ErrorDetails = any>(
@@ -96,6 +96,13 @@ const post = (url: RequestUrl, body: any, options?: RequestOptions) => {
   });
 };
 
+const put = <ResponseData = any, ErrorDetails = any>(url: RequestUrl, body: any, options?: RequestOptions) => {
+  return httpClient("PUT")<ResponseData, ErrorDetails>(url, {
+    body: JSON.stringify(body),
+    ...options,
+  });
+};
+
 const deleteRequest = (
   url: RequestUrl,
   body?: any,
@@ -110,5 +117,6 @@ const deleteRequest = (
 export const clientFetch = {
   get,
   post,
+  put,
   deleteRequest,
 };

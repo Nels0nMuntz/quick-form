@@ -6,11 +6,23 @@ import {
 } from "./shared/lib";
 import { appConfig } from "./app-root/lib";
 
-const publicRoutes = ["/sign-in", "/sign-up", "/public-form", "/"];
+type PublicRoute = {
+  route: string;
+  exact: boolean;
+};
+
+const publicRoutes: PublicRoute[] = [
+  { route: "/", exact: true },
+  { route: "/sign-in", exact: true },
+  { route: "/sign-up", exact: true },
+  { route: "/public-form", exact: false },
+];
 
 export default async function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
-  const isPublicRoute = publicRoutes.some((route) => path.includes(route));
+  const isPublicRoute = publicRoutes.some(({ route, exact }) => {
+    return exact ? path === route : path.includes(route);
+  });
 
   const accessToken = req.cookies.get("jwt_access")?.value;
 
@@ -33,7 +45,6 @@ export default async function middleware(req: NextRequest) {
   }
 
   const isValidAccessToken = await validateAccessToken(accessToken);
-
   if (isValidAccessToken) {
     return NextResponse.next();
   }

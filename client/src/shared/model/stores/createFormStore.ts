@@ -29,6 +29,7 @@ interface FormActions {
     addOption: (id: string) => void;
     updateOption: (questionId: string, optionId: string, value: string) => void;
     deleteOption: (questionId: string, optionId: string) => void;
+    initializeStore: (state: FormState) => void;
     resetStore: () => void;
   };
 }
@@ -37,7 +38,6 @@ type FormStore = FormState & FormActions;
 
 const DFAULT_FORM_TITLE_TEXT = "Title";
 const DFAULT_FORM_DESCRIPTION_TEXT = "Description";
-
 
 const question1 = createDefaultQuestion({
   type: "Short text",
@@ -69,7 +69,7 @@ const initialState: FormState = {
     [question3.id]: question3,
     [question4.id]: question4,
   },
-}
+};
 
 const useCreateFormStore = create<FormStore>()((set) => {
   return {
@@ -222,8 +222,16 @@ const useCreateFormStore = create<FormStore>()((set) => {
           title: initialState.title,
           description: initialState.description,
           questions: initialState.questions,
-        })
-      }
+        });
+      },
+      initializeStore: (state) => {
+        set({
+          name: state.name,
+          title: state.title,
+          description: state.description,
+          questions: state.questions,
+        });
+      },
     },
   };
 });

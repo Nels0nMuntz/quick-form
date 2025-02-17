@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import {
   useFormActions,
   useFormDescription,
@@ -8,9 +9,8 @@ import {
 } from "@/shared/model";
 import { Button } from "@/shared/ui";
 import { toast } from "@/shared/lib";
-import { usePublishForm } from "../api/usePublishForm";
-import { PublishFormRequest } from "../model/publishFormRequest";
-import { useRouter } from "next/navigation";
+import { CreateFormRequest } from "@/entities/form";
+import { usePublishFormMutation } from "../api/usePublishFormMutation";
 
 export function PublishFormButton() {
   const router = useRouter();
@@ -19,7 +19,8 @@ export function PublishFormButton() {
   const description = useFormDescription();
   const questions = useFormQuestions();
   const { resetStore } = useFormActions();
-  const data: PublishFormRequest = {
+
+  const data: CreateFormRequest = {
     name,
     config: {
       title,
@@ -29,7 +30,7 @@ export function PublishFormButton() {
     endsAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Current date plus one week
   };
 
-  const { mutate, isPending } = usePublishForm(data, {
+  const { mutate, isPending } = usePublishFormMutation(data, {
     onSuccess: () => {
       toast({
         title: "Success",

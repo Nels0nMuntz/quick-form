@@ -10,3 +10,5 @@ export { FormName } from "./edit-form-name/ui/edit-form-name";
 
 export { DeleteFormButton } from "./delete-form/ui/delete-form-button";
 export { useDeleteFormMutation } from "./delete-form/api/useDeleteFormMutation";
+
+export { UpdateFormButton } from "./updarte-form/ui/update-form-button";

@@ -7,6 +7,7 @@ import { getAllSchema } from "./schemas/getAllSchema";
 import { getByIdSchema } from "./schemas/getByIdSchema";
 import { removeSchema } from "./schemas/removeSchema";
 import { getBySlugSchema } from "./schemas/getBySlugSchema";
+import { updateFormSchema } from "./schemas/updateFormSchema";
 
 const getOne = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -75,6 +76,20 @@ const create = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+const update = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = updateFormSchema.parse(req.body);
+    const updatedForm = await formService.update(data);
+    ApiResponse.sendSuccessResponse({
+      res,
+      status: 200,
+      data: updatedForm,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const remove = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const formId = removeSchema.parse(req.params);
@@ -88,4 +103,4 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { getOne, getOnePublic, getAll, create, remove };
+export default { getOne, getOnePublic, getAll, create, update, remove };

@@ -15,10 +15,7 @@ export function CreateFormPage() {
     <>
       <div className="border-b border-gray-200 bg-white pt-12">
         <Container>
-          <Header
-            title={<FormName />}
-            action={<PublishFormButton />}
-          />
+          <Header title={<FormName />} action={<PublishFormButton />} />
           <Toolbar />
         </Container>
       </div>

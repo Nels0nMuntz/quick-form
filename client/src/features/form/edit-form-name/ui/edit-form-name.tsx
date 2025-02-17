@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { editFormNameSchema } from "../model/schema/editFormNameSchema";
 import { useFormActions, useFormName } from "@/shared/model";
+import { Pencil } from "lucide-react";
 
 export function FormName() {
   const name = useFormName();
@@ -25,7 +26,7 @@ export function FormName() {
   });
 
   return (
-    <div className="w-full max-w-80">
+    <div className="relative w-full max-w-80">
       <Form {...form}>
         <FormField
           control={form.control}
@@ -35,7 +36,7 @@ export function FormName() {
               <FormControl>
                 <Input
                   {...field}
-                  className="border-transparent font-medium shadow-none focus:shadow-sm md:text-2xl"
+                  className="border font-medium shadow-none focus:shadow-sm md:text-2xl pr-6"
                   onBlur={(e) => setName(e.target.value)}
                 />
               </FormControl>
@@ -44,6 +45,9 @@ export function FormName() {
           )}
         />
       </Form>
+      <div className="absolute right-1 top-1/2 -translate-y-1/2">
+        <Pencil size={16} className="text-midnight/40"/>
+      </div>
     </div>
   );
 }
