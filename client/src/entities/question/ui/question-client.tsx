@@ -12,12 +12,9 @@ export const QuestionClient = memo(
   ({ id, actions, dropdown, body }: ClientQuestionComponentProps) => {
     const editorMode = useEditorMode();
     const data = useFormQuestion(id);
-    const { setQuestion } = useFormActions();
+    const { setQuestionTitle } = useFormActions();
     const updateTitle = (json: EditorJSONContent) => {
-      setQuestion({
-        ...data,
-        title: json,
-      });
+      setQuestionTitle(id, json);
     };
     return (
       <Paper>

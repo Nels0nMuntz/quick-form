@@ -11,6 +11,7 @@ export * from "./shadcn-ui/dropdown-menu";
 export * from "./shadcn-ui/checkbox";
 export * from "./shadcn-ui/select";
 export * from "./shadcn-ui/table";
+export * from "./shadcn-ui/dialog";
 export { Button as BaseButton } from "./shadcn-ui/button";
 
 export { Icon } from "./icon/icon";
@@ -24,3 +25,4 @@ export { Devider } from "./devider/devider";
 export { FormWrapper } from "./form-wrapper/form-wrapper";
 export { QuestionsList } from "./questions-list/questions-list";
 export { Spinner } from "./spinner/spinner";
+export { CopyLink } from "./copy-link/copy-link";

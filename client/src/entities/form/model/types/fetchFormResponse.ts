@@ -5,4 +5,5 @@ export type FetchFormResponse = Form & {
   config: FormConfig & {
     id: string;
   };
+  slug: string;
 };

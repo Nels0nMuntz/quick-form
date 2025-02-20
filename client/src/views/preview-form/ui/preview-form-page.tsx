@@ -6,7 +6,7 @@ import { Questions } from "./questions";
 export function PreviewFormPage() {
   return (
     <>
-      <div className="py-8">
+      <div className="py-8 bg-white">
         <Container>
           <BackButton />
         </Container>

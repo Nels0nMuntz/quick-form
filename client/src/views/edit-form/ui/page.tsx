@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { FetchFormResponse } from "@/entities/form";
-import { useFormActions } from "@/shared/model";
+import { useFormActions, useNavigationEvents } from "@/shared/model";
 import { mapArrayToObjectByKey } from "@/shared/lib";
 import { Container, Paper, Spinner } from "@/shared/ui";
 import {
@@ -13,6 +13,7 @@ import {
 import { Header } from "@/widgets/header";
 import { AddQuestion } from "@/features/question";
 import { Questions } from "@/views/create-form/ui/questions";
+import Toolbar from "./toolbar";
 
 interface Props {
   form: FetchFormResponse;
@@ -21,6 +22,12 @@ interface Props {
 export function Page({ form }: Props) {
   const { initializeStore, resetStore } = useFormActions();
   const [initialized, setInitialized] = useState(false);
+  useNavigationEvents((e) => {
+    if (e.pathname === "/dashboard") {
+      resetStore();
+    }
+  });
+
   useEffect(() => {
     initializeStore({
       name: form.name,
@@ -29,7 +36,6 @@ export function Page({ form }: Props) {
       questions: mapArrayToObjectByKey(form.config.questions, "id"),
     });
     setInitialized(true);
-    return () => resetStore();
   }, []);
 
   if (!initialized) {
@@ -42,12 +48,13 @@ export function Page({ form }: Props) {
 
   return (
     <>
-      <div className="border-b border-gray-200 bg-white py-12">
+      <div className="border-b border-gray-200 bg-white pt-12">
         <Container>
           <Header
             title={<FormName />}
             action={<UpdateFormButton configId={form.config.id} />}
           />
+          <Toolbar slug={form.slug} />
         </Container>
       </div>
       <div className="flex-grow bg-blue-light py-8">

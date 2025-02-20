@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import { Button } from "@/shared/ui";
-import { Trash2 } from "lucide-react";
 import { toast } from "@/shared/lib";
 import { useDeleteFormMutation } from "../api/useDeleteFormMutation";
 
@@ -34,12 +33,13 @@ export function DeleteFormButton({ formId, onSuccess }: Props) {
   return (
     <Button
       size="icon"
-      variant="ghost"
+      variant="destructive"
+      className="w-auto"
       loading={isPending}
       disabled={isPending}
       onClick={handleClick}
     >
-      <Trash2 />
+      Delete
     </Button>
   );
 }

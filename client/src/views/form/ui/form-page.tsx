@@ -1,6 +1,6 @@
-import { fetchFormServer } from "@/entities/form";
+import { fetchPublicFormServer } from "@/entities/form";
 import { generateHTML } from "@/shared/lib";
-import { FormWrapper, Paper } from "@/shared/ui";
+import { Container, FormWrapper, Paper } from "@/shared/ui";
 import { Questions } from "./questions";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export async function FormPage({ params }: Props) {
   const { id } = await params;
-  const response = await fetchFormServer(id);
+  const response = await fetchPublicFormServer(id);
 
   if (!response.ok || !response.data.success) {
     return <div>Something went wrong</div>;
@@ -22,14 +22,18 @@ export async function FormPage({ params }: Props) {
     : "";
 
   return (
-    <FormWrapper>
-      <Paper top>
-        <div
-          className="flex flex-col gap-y-2"
-          dangerouslySetInnerHTML={{ __html: `${title}${description}` }}
-        ></div>
-      </Paper>
-      <Questions questions={config.questions} />
-    </FormWrapper>
+    <div className="py-12 bg-blue-light min-h-[100dvh]">
+      <Container>
+        <FormWrapper>
+          <Paper top>
+            <div
+              className="flex flex-col gap-y-2"
+              dangerouslySetInnerHTML={{ __html: `${title}${description}` }}
+            ></div>
+          </Paper>
+          <Questions questions={config.questions} />
+        </FormWrapper>
+      </Container>
+    </div>
   );
 }

@@ -8,7 +8,6 @@ export { FormDescription } from "./edit-form-description/ui/edit-form-descriptio
 
 export { FormName } from "./edit-form-name/ui/edit-form-name";
 
-export { DeleteFormButton } from "./delete-form/ui/delete-form-button";
-export { useDeleteFormMutation } from "./delete-form/api/useDeleteFormMutation";
+export { DeleteFormDialog } from "./delete-form/ui/delete-form-dialog";
 
 export { UpdateFormButton } from "./updarte-form/ui/update-form-button";

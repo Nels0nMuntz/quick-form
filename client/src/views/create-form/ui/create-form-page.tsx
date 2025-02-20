@@ -9,10 +9,11 @@ import { Container, Paper } from "@/shared/ui";
 import { AddQuestion } from "@/features/question";
 import { Questions } from "./questions";
 import { Toolbar } from "./toolbar";
+import CleanUpForm from "./clean-up-form";
 
 export function CreateFormPage() {
   return (
-    <>
+    <CleanUpForm>
       <div className="border-b border-gray-200 bg-white pt-12">
         <Container>
           <Header title={<FormName />} action={<PublishFormButton />} />
@@ -33,6 +34,6 @@ export function CreateFormPage() {
           </div>
         </Container>
       </div>
-    </>
+    </CleanUpForm>
   );
 }

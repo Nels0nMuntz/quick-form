@@ -64,7 +64,7 @@ export function UpdateFormButton({ configId }: Props) {
       loading={isPending}
       onClick={() => mutate(updateFormData)}
     >
-      Publish Form
+      Update Form
     </Button>
   );
 }

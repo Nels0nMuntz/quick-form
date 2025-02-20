@@ -3,12 +3,12 @@ import { Button as BaseButton } from "../shadcn-ui/button";
 import { cn } from "@/shared/lib/shadcn-utils";
 import { Loader2 } from "lucide-react";
 
-const buttonVariants = cva("w-full h-auto", {
+const buttonVariants = cva("w-full h-auto px-4 py-2", {
   variants: {
     variant: {
       default: "bg-sky text-white hover:bg-sky/85",
-      // destructive:
-      //   "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+      destructive:
+        "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
       outline:
         "border border-sky bg-background shadow-sm text-sky hover:bg-accent hover:text-sky",
       // secondary:

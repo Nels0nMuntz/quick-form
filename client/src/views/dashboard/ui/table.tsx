@@ -1,16 +1,17 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Form } from "@/entities/form";
+import { Pencil } from "lucide-react";
+import { FetchFormResponse } from "@/entities/form";
 import {
-  Icon,
+  Button,
+  CopyLink,
   Table,
   TableBody,
   TableCell,
@@ -19,7 +20,7 @@ import {
   TableRow,
 } from "@/shared/ui";
 import { formatTableData } from "../lib/utils/formatTableData";
-import { DeleteFormButton } from "@/features/form";
+import { DeleteFormDialog } from "@/features/form";
 import { useTableDataQuery } from "../api/hooks/useTableDataQuery";
 
 export function FormsTable() {
@@ -28,7 +29,11 @@ export function FormsTable() {
     take: 10,
     skip: 0,
   });
-  const columns: ColumnDef<Form, any>[] = useMemo(
+  const [urlOrigin, setUrlOrigin] = useState("");
+  useEffect(() => {
+    setUrlOrigin(window.location.origin);
+  }, []);
+  const columns: ColumnDef<FetchFormResponse, any>[] = useMemo(
     () => [
       {
         header: "Form Name",
@@ -42,35 +47,39 @@ export function FormsTable() {
         header: "Form Link",
         accessorKey: "link",
         cell: (info) => (
-          <Link
-            href={`/form/${info.row.original.id}`}
-            className="text-sky underline"
-          >
-            <div className="flex items-center gap-x-2">
-              See more
-              <Icon name="arrow-left" />
-            </div>
-          </Link>
+          <CopyLink
+            link={`${urlOrigin}/public-form/${info.row.original.slug}`}
+          />
         ),
       },
       {
         header: "",
         accessorKey: "delete",
         cell: (info) => (
-          <DeleteFormButton
-            formId={info.row.original.id}
-            onSuccess={() => {
-              refetch();
-              router.refresh();
-            }}
-          />
+          <div className="flex gap-x-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => router.push(`/form/${info.row.original.id}`)}
+            >
+              <Pencil className="text-sky/85" />
+            </Button>
+            <DeleteFormDialog
+              formId={info.row.original.id}
+              formName={info.row.original.name}
+              onSuccess={() => {
+                refetch();
+                router.refresh();
+              }}
+            />
+          </div>
         ),
       },
     ],
     [],
   );
   const formattedItems = useMemo(() => formatTableData(data), [data]);
-  const table = useReactTable({
+  const table = useReactTable<FetchFormResponse>({
     columns: columns,
     data: formattedItems,
     getCoreRowModel: getCoreRowModel(),

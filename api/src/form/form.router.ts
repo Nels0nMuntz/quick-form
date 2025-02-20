@@ -11,10 +11,9 @@ import { updateFormSchema } from "./schemas/updateFormSchema";
 export const formRouter = Router();
 
 formRouter.get(
-  "/",
-  authenticateWith(authStrategies.jwt),
-  validate(getAllSchema, (req) => req.query),
-  formController.getAll
+  "/public/:slug",
+  validate(getBySlugSchema, (req) => req.params),
+  formController.getOnePublic
 );
 
 formRouter.get(
@@ -25,9 +24,10 @@ formRouter.get(
 );
 
 formRouter.get(
-  "/public/:slug",
-  validate(getBySlugSchema, (req) => req.params),
-  formController.getOnePublic
+  "/",
+  authenticateWith(authStrategies.jwt),
+  validate(getAllSchema, (req) => req.query),
+  formController.getAll
 );
 
 formRouter.post(

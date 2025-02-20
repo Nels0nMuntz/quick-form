@@ -4,4 +4,5 @@ export const API_ENDPOINTS = {
   refresh: "/user/refresh",
   currentUser: "/user",
   forms: "/forms",
+  publicForms: "/forms/public",
 } as const;
