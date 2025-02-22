@@ -21,7 +21,7 @@ const create = async ({ formId, responses }: CreateResponseData) => {
 };
 
 const getByFormId = async (formId: number) => {
-  return await db.formResponse.findUnique({
+  return await db.formResponse.findMany({
     where: { formId },
     include: { responses: true },
   });

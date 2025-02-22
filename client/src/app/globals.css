@@ -114,19 +114,19 @@ body {
 .tiptap.ProseMirror.ProseMirror-focused {
   @apply border-midnight outline-none;
 }
-.quick-form-wrapper h1,
-.tiptap.ProseMirror h1 {
+.quick-form-wrapper h1.quick-form-heading,
+.tiptap.ProseMirror h1.quick-form-heading {
   @apply text-4xl;
 }
-.quick-form-wrapper h2,
-.tiptap.ProseMirror h2 {
+.quick-form-wrapper h2.quick-form-heading,
+.tiptap.ProseMirror h2.quick-form-heading {
   @apply text-3xl;
 }
-.quick-form-wrapper h3,
-.tiptap.ProseMirror h3 {
+.quick-form-wrapper h3.quick-form-heading,
+.tiptap.ProseMirror h3.quick-form-heading {
   @apply text-2xl;
 }
-.quick-form-wrapper p,
-.tiptap.ProseMirror p {
+.quick-form-wrapper .quick-form-paragraph,
+.tiptap.ProseMirror .quick-form-paragraph {
   @apply text-xl;
 }

@@ -31,7 +31,6 @@ const getOnePublic = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("getOnePublic", {url: req.url});
   try {
     const data = getBySlugSchema.parse(req.params);
     const form = await formService.getPublic(data);

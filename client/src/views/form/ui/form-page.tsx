@@ -1,7 +1,7 @@
 import { fetchPublicFormServer } from "@/entities/form";
-import { generateHTML } from "@/shared/lib";
 import { Container, FormWrapper, Paper } from "@/shared/ui";
-import { Questions } from "./questions";
+import { generateHTML } from "@/shared/lib";
+import { Form } from "./form";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -15,14 +15,15 @@ export async function FormPage({ params }: Props) {
     return <div>Something went wrong</div>;
   }
 
-  const config = response.data.data.config;
+  const form = response.data.data;
+  const config = form.config;
   const title = generateHTML(config.title);
   const description = config?.description
     ? generateHTML(config.description)
     : "";
 
   return (
-    <div className="py-12 bg-blue-light min-h-[100dvh]">
+    <div className="min-h-[100dvh] bg-blue-light py-12">
       <Container>
         <FormWrapper>
           <Paper top>
@@ -31,7 +32,7 @@ export async function FormPage({ params }: Props) {
               dangerouslySetInnerHTML={{ __html: `${title}${description}` }}
             ></div>
           </Paper>
-          <Questions questions={config.questions} />
+          <Form formId={Number(form.id)} questions={config.questions} />
         </FormWrapper>
       </Container>
     </div>

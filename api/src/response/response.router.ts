@@ -15,7 +15,6 @@ responseRouter.get(
 
 responseRouter.post(
   "/",
-  authenticateWith(authStrategies.jwt),
   validate(createResponseSchema),
   responseController.create
 );

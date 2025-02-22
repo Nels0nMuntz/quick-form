@@ -31,12 +31,27 @@ export const ShortTextQuestionBody: React.FC<QuestionBodyProps> = ({
       <FormField
         control={control}
         name={question.id}
+        rules={{
+          required: {
+            value: !!question.required,
+            message: "Field is required",
+          },
+          maxLength: {
+            value: 20,
+            message: "Field is must have not more then 20 charecters",
+          },
+          pattern: {
+            value: /^[A-Za-z1-9\s'!?@#$&*"/():;]+$/,
+            message:
+              "Answer must contain only letters, numbers and some symbols",
+          },
+        }}
         render={({ field }) => (
           <FormItem>
             <FormControl>
               <Input placeholder="Your answer" className="w-full" {...field} />
             </FormControl>
-            <FormMessage />
+            <FormMessage className="text-xs" />
           </FormItem>
         )}
       />
@@ -52,6 +67,20 @@ export const LongTextQuestionBody: React.FC<QuestionBodyProps> = ({
     <FormField
       control={control}
       name={question.id}
+      rules={{
+        required: {
+          value: !!question.required,
+          message: "Field is required",
+        },
+        maxLength: {
+          value: 200,
+          message: "Field is must have not more then 200 charecters",
+        },
+        pattern: {
+          value: /^[A-Za-z1-9\s'!?@#$&*"/():;]+$/,
+          message: "Answer must contain only letters and some symbols",
+        },
+      }}
       render={({ field }) => (
         <FormItem>
           <FormControl>
@@ -70,43 +99,55 @@ export const CheckboxQuestionBody: React.FC<QuestionBodyProps> = ({
   setValue,
 }) => {
   const { options } = question as FormQuestion<"Checkbox">;
+  const fieldState = control.getFieldState(question.id);
   return (
-    <FormField
-      control={control}
-      name={question.id}
-      render={({ field }) => {
-        const handleCheckedChange = (id: string) => {
-          if (setValue) {
-            const options = field.value as unknown as any[];
-            setValue(
-              question.id,
-              options.map((option) =>
-                option.id === id
-                  ? { ...option, checked: !option.checked }
-                  : option,
-              ),
-            );
-          }
-        };
-        return (
-          <div className="flex flex-col gap-y-4">
-            {options.map(({ id, value }) => (
-              <FormItem
-                className="flex flex-row items-start space-x-3 space-y-0"
-                key={id}
-              >
-                <FormControl>
-                  <Checkbox onCheckedChange={() => handleCheckedChange(id)} />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>{value}</FormLabel>
-                </div>
-              </FormItem>
-            ))}
-          </div>
-        );
-      }}
-    />
+    <div>
+      <div className="mb-2 flex flex-col gap-y-4">
+        {options.map((option) => (
+          <FormItem
+            className="flex flex-row items-start space-x-3 space-y-0"
+            key={option.id}
+          >
+            <FormField
+              key={option.id}
+              control={control}
+              name={question.id}
+              rules={{
+                validate: (value) =>
+                  !value.length ? "Choose at least one option" : undefined,
+              }}
+              render={({ field }) => {
+                return (
+                  <>
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value?.includes(option.value)}
+                        onCheckedChange={(checked) => {
+                          const value =
+                            (field.value as unknown as string[]) || [];
+                          const newValue = checked
+                            ? [...value, option.value]
+                            : value.filter(
+                                (value: string) => value !== option.value,
+                              );
+                          field.onChange(newValue);
+                        }}
+                      />
+                    </FormControl>
+                    <FormLabel className="cursor-pointer">
+                      <span className="text-charcoal">{option.value}</span>
+                    </FormLabel>
+                  </>
+                );
+              }}
+            />
+          </FormItem>
+        ))}
+      </div>
+      <FormMessage>
+        {fieldState.invalid ? fieldState.error?.message : ""}
+      </FormMessage>
+    </div>
   );
 };
 
@@ -119,6 +160,12 @@ export const DropdownQuestionBody: React.FC<QuestionBodyProps> = ({
     <FormField
       control={control}
       name={question.id}
+      rules={{
+        required: {
+          value: !!question.required,
+          message: "Field is required",
+        },
+      }}
       render={({ field }) => (
         <FormItem className="max-w-60">
           <Select onValueChange={field.onChange} defaultValue={field.value}>

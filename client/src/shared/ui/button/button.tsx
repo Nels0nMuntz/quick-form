@@ -56,7 +56,11 @@ export function Button({
       {...props}
     >
       <>
-        {loading ? <Loader2 className="animate-spin" width={20} height={20}/> : null}
+        {loading ? (
+          <div className="p-0.5">
+            <Loader2 className="animate-spin" width={20} height={20} />
+          </div>
+        ) : null}
         {!loading && children}
       </>
     </BaseButton>

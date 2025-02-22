@@ -9,11 +9,11 @@ const create = async (data: CreateResponseData) => {
 };
 
 const get = async (data: GetResponseData) => {
-  const response = await responseRepository.getByFormId(data.fomrId);
-  if (!response) {
+  const responses = await responseRepository.getByFormId(data.fomrId);
+  if (!responses) {
     throw new NotFoundError("Form response not found");
   }
-  return {
+  return responses.map((response) => ({
     id: response.id,
     formId: response.formId,
     createdAt: response.createdAt,
@@ -23,7 +23,7 @@ const get = async (data: GetResponseData) => {
       type: item.type,
       response: item.type === "Checkbox" ? item.response : item.response[0],
     })),
-  };
+  }));
 };
 
 const remove = async (data: RemoveResponseData) => {

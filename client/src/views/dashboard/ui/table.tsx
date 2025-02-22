@@ -76,7 +76,7 @@ export function FormsTable() {
         ),
       },
     ],
-    [],
+    [urlOrigin],
   );
   const formattedItems = useMemo(() => formatTableData(data), [data]);
   const table = useReactTable<FetchFormResponse>({

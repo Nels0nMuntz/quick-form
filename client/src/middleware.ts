@@ -16,6 +16,7 @@ const publicRoutes: PublicRoute[] = [
   { route: "/sign-in", exact: true },
   { route: "/sign-up", exact: true },
   { route: "/public-form", exact: false },
+  { route: "/thank-you", exact: false },
 ];
 
 export default async function middleware(req: NextRequest) {

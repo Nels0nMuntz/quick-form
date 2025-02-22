@@ -5,4 +5,5 @@ export const API_ENDPOINTS = {
   currentUser: "/user",
   forms: "/forms",
   publicForms: "/forms/public",
+  responses: "/responses",
 } as const;

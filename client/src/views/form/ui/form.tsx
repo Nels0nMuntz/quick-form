@@ -1,11 +1,12 @@
 "use client";
+import { useCallback } from "react";
+import { useForm } from "react-hook-form";
 import {
   FormQuestionsTypes,
   PartialFormQuestion,
   QuestionServer,
 } from "@/entities/question";
-import { Button, Form, QuestionsList } from "@/shared/ui";
-import { useForm } from "react-hook-form";
+import { Button, Form as FormWrapper, QuestionsList } from "@/shared/ui";
 import {
   ShortTextQuestionBody,
   LongTextQuestionBody,
@@ -13,7 +14,9 @@ import {
   DropdownQuestionBody,
   QuestionBodyProps,
 } from "./question-body";
-import { useCallback } from "react";
+import { useSendResponseMutation } from "@/features/response";
+import { createFormDefaultValues } from "../lib/utils/createFormDefaultValues";
+import { createFormResponse } from "../lib/utils/createResponseData";
 
 const quetionBody: Record<FormQuestionsTypes, React.FC<QuestionBodyProps>> = {
   "Long text": LongTextQuestionBody,
@@ -22,24 +25,18 @@ const quetionBody: Record<FormQuestionsTypes, React.FC<QuestionBodyProps>> = {
   Dropdown: DropdownQuestionBody,
 };
 
-export type QuestionsForm = Record<string, any>;
-
 interface Props {
+  formId: number;
   questions: PartialFormQuestion[];
 }
 
-export function Questions({ questions }: Props) {
-  const defaultValues = questions.reduce<QuestionsForm>((all, curr) => {
-    if (curr.type === "Checkbox" && curr.options) {
-      all[curr.id] = curr.options.map((item) => ({ ...item, checked: false }));
-    } else {
-      all[curr.id] = "";
-    }
-    return all;
-  }, {});
+export function Form({ formId, questions }: Props) {
   const form = useForm({
-    defaultValues,
+    defaultValues: createFormDefaultValues(questions),
+    mode: "onTouched",
   });
+  const { isPending, mutate } = useSendResponseMutation();
+
   const renderQuestion = useCallback((question: PartialFormQuestion) => {
     const BodyComponent = quetionBody[question.type];
     const body = (
@@ -54,14 +51,22 @@ export function Questions({ questions }: Props) {
     );
   }, []);
   const onSubmit = (values: any) => {
-    console.log(values);
+    mutate(createFormResponse({ formId, questions, values }));
+  };
+  const onError = (errors: any) => {
+    console.log({ errors, values: form.getValues() });
   };
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+    <FormWrapper {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit, onError)}
+        className="space-y-4"
+      >
         <QuestionsList items={questions} renderItem={renderQuestion} />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" loading={isPending}>
+          Submit
+        </Button>
       </form>
-    </Form>
+    </FormWrapper>
   );
 }

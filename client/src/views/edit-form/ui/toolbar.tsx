@@ -18,7 +18,7 @@ export default function Toolbar({ slug }: Props) {
         variant="ghost"
         size="icon"
         onClick={() => router.push("/form/preview")}
-        className="text-sky/85"
+        className="text-sky/85 hover:text-sky/85"
       >
         <Eye />
       </Button>

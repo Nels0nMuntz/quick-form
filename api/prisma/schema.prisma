@@ -73,7 +73,7 @@ model FormQuestionOption {
 
 model FormResponse {
   id        String                 @id @default(cuid())
-  formId    Int                    @unique
+  formId    Int                    
   responses FormQuestionResponse[]
   createdAt DateTime               @default(now())
   updatedAt DateTime               @updatedAt

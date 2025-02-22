@@ -80,7 +80,18 @@ export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
       ref,
       placeholder,
       extensions: [
-        StarterKit,
+        StarterKit.configure({
+          paragraph: {
+            HTMLAttributes: {
+              class: "quick-form-paragraph",
+            },
+          },
+          heading: {
+            HTMLAttributes: {
+              class: "quick-form-heading",
+            }
+          }
+        }),
         Underline,
         Link,
         ...(oneLine ? [NoNewLine] : []),
