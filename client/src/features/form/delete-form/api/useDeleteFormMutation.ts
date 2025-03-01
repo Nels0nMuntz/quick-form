@@ -3,7 +3,7 @@ import { deleteForm } from "@/entities/form";
 
 export const useDeleteFormMutation = () => {
   return useMutation({
-    mutationFn: async (formId: string) => {
+    mutationFn: async (formId: number) => {
       const response = await deleteForm(formId);
       if (!response.ok || !response.data.success) {
         throw new Error("Failed to delete form");

@@ -5,7 +5,7 @@ import { toast } from "@/shared/lib";
 
 export const useSendResponseMutation = () => {
   const router = useRouter();
-  const { slug } = useParams<{ slug: string }>();
+  const { id } = useParams<{ id: string }>();
   return useMutation({
     mutationFn: async (data: SendResponseData) => {
       const response = await sendResponse(data);
@@ -23,7 +23,7 @@ export const useSendResponseMutation = () => {
       });
     },
     onSuccess: (data) => {
-      router.replace(`/thank-you/${slug}`);
+      router.replace(`/thank-you/${id}`);
     },
   });
 };

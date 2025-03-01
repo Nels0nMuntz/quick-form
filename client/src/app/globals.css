@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-inter text-lg font-normal text-charcoal antialiased;
+  @apply font-inter text-lg font-normal text-midnight antialiased;
 }
 
 @layer base {
@@ -129,4 +129,23 @@ body {
 .quick-form-wrapper .quick-form-paragraph,
 .tiptap.ProseMirror .quick-form-paragraph {
   @apply text-xl;
+}
+.quick-form-bar-chart .recharts-text .recharts-cartesian-axis-tick-value {
+  @apply whitespace-nowrap;
+}
+.quick-form-bar-chart  text.labellist-item {
+  @apply fill-midnight;
+}
+.quick-form-bar-chart  .recharts-cartesian-axis-line,
+.quick-form-bar-chart  .recharts-cartesian-axis-tick-line {
+  @apply stroke-gray-200
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

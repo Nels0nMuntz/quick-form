@@ -15,10 +15,10 @@ export const createFormResponse = ({
 }: Options): SendResponseData => {
   return {
     formId,
-    responses: questions.map(({ id, type }) => ({
+    answers: questions.map(({ id, type }) => ({
       questionId: id,
       type,
-      response: values[id],
+      value: values[id],
     })),
   };
 };

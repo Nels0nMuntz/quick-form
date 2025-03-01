@@ -5,7 +5,7 @@ import { toast } from "@/shared/lib";
 import { useDeleteFormMutation } from "../api/useDeleteFormMutation";
 
 interface Props {
-  formId: string;
+  formId: number;
   onSuccess: () => void;
 }
 

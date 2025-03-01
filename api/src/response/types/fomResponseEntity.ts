@@ -1,16 +1,16 @@
 export interface FormResponseEntity {
   id: string;
   formId: number;
-  responses: QuestionResponse<QuestionsType>[];
+  answers: QuestionAnswer<QuestionsType>[];
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface QuestionResponse<Type extends QuestionsType> {
+export interface QuestionAnswer<Type extends QuestionsType> {
   id: string;
   questionId: string;
   type: Type;
-  response: Type extends "Checkbox" ? string[] : string;
+  value: Type extends "Checkbox" ? string[] : string;
   createdAt: Date;
   updatedAt: Date;
 }

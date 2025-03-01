@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const getResponseSchema = z.object({
-  fomrId: z.number(),
+  id: z.string(),
 });
 
 export type GetResponseData = z.infer<typeof getResponseSchema>;

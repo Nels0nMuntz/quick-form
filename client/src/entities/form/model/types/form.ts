@@ -1,7 +1,7 @@
 import { FormConfig } from "@/shared/model";
 
 export interface Form {
-  id: string;
+  id: number;
   name: string;
   config: FormConfig;
   createdAt: string;

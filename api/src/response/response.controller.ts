@@ -3,12 +3,27 @@ import { createResponseSchema } from "./schemas/createResponseSchema";
 import responseService from "./response.service";
 import ApiResponse from "../utils/apiResponse/apiResponse";
 import { getResponseSchema } from "./schemas/getResponseSchema";
+import { getStatsSchema } from "./schemas/getStatsSchema";
 import { removeResponseSchema } from "./schemas/removeResponseSchema";
 
 const get = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const data = getResponseSchema.parse(req.params);
     const formResponse = await responseService.get(data);
+    ApiResponse.sendSuccessResponse({
+      res,
+      status: 200,
+      data: formResponse,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getStats = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const data = getStatsSchema.parse(req.query);
+    const formResponse = await responseService.getStats(data);
     ApiResponse.sendSuccessResponse({
       res,
       status: 200,
@@ -45,4 +60,4 @@ const remove = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { get, create, remove };
+export default { get, getStats, create, remove };

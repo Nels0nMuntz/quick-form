@@ -14,7 +14,7 @@ import { useState } from "react";
 import { DeleteFormButton } from "./delete-form-button";
 
 interface Props {
-  formId: string;
+  formId: number;
   formName: string;
   onSuccess: () => void;
 }

@@ -114,7 +114,9 @@ export const CheckboxQuestionBody: React.FC<QuestionBodyProps> = ({
               name={question.id}
               rules={{
                 validate: (value) =>
-                  !value.length ? "Choose at least one option" : undefined,
+                  !!question.required && !value.length
+                    ? "Choose at least one option"
+                    : undefined,
               }}
               render={({ field }) => {
                 return (

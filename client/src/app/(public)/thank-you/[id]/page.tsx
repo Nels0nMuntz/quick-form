@@ -11,6 +11,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: "Quick Form",
   };
   const id = (await params).id;
+  console.log({id});
+  
   const { ok, data } = await fetchPublicFormServer(id);
 
   if (ok && data.success) {
