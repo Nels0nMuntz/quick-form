@@ -1,4 +1,3 @@
-import { buildJsonContent } from "../utils/buildJsonContent";
 import { generateUniqueId } from "../utils/generateUniqueId";
 
 export const DFAULT_OPTIONS: Record<"Checkbox" | "Dropdown", any> = {

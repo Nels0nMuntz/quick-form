@@ -27,7 +27,6 @@ interface Props {
 export function BarChart({
   config,
   data,
-  legendData,
   xAxisKey,
   yAxisKey,
 }: Props) {
@@ -51,7 +50,7 @@ export function BarChart({
             tickLine={false}
             tickMargin={10}
             tick={(props) => {
-              const { x, y, stroke, payload, className } = props;
+              const { x, y, payload, className } = props;
               return (
                 <g transform={`translate(${x},${y})`}>
                   <text
@@ -88,14 +87,13 @@ export function BarChart({
               fontSize={12}
               content={(props) => {
                 const { x, y, width, value, height, index } = props;
-                const radius = 11;
                 if (!x || !y || !width || !value || index === undefined)
                   return null;
                 return (
                   <g>
                     <text
-                      x={width + x + 36}
-                      y={y + height / 2}
+                      x={Number(width) + Number(x) + 36}
+                      y={Number(y) + Number(height) / 2}
                       fill="#000"
                       textAnchor="middle"
                       dominantBaseline="middle"

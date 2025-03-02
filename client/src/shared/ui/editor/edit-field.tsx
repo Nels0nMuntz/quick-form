@@ -43,8 +43,8 @@ export function EditField({
   useEffect(() => {
     const subscription = watch((values, { type }) => {
       const json = values.editField as unknown as JSONContent;
-      if (type === "change") {
-        onChange && onChange(json);
+      if (type === "change" && onChange) {
+        onChange(json);
       }
     });
 

@@ -22,7 +22,7 @@ export const useSendResponseMutation = () => {
         variant: "destructive",
       });
     },
-    onSuccess: (data) => {
+    onSuccess: () => {
       router.replace(`/thank-you/${id}`);
     },
   });

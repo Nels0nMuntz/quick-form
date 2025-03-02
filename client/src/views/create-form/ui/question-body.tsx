@@ -1,15 +1,13 @@
 "use client";
 import { memo } from "react";
 import { Square } from "lucide-react";
-import { Checkbox, EditField, Input } from "@/shared/ui";
+import { Input } from "@/shared/ui";
 import { FormQuestion } from "@/entities/question";
 import {
-  EditorJSONContent,
   QuestionBodyProps,
   useFormActions,
   useFormQuestion,
 } from "@/shared/model";
-import { cn, useEditorMode } from "@/shared/lib";
 import { AddCheckboxOption, DeleteOption } from "@/features/question";
 
 export const ShortTextQuestionBody: React.FC<QuestionBodyProps> = memo(() => {

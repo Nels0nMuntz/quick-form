@@ -12,7 +12,7 @@ async function decrypt(token: string, secret: string) {
     });
     return payload;
   } catch (error) {
-    console.log(`Failed to verify token: `);
+    console.error(`Failed to verify token: ${error}`);
   }
 }
 

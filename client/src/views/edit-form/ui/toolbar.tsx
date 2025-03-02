@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Eye, UserPlus } from "lucide-react";
+import { Eye } from "lucide-react";
 import { Button, CopyLink } from "@/shared/ui";
 
 interface Props {

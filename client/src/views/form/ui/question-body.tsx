@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Control } from "react-hook-form";
 import {
   Checkbox,
@@ -87,7 +86,6 @@ export const LongTextQuestionBody: React.FC<QuestionBodyProps> = ({
 export const CheckboxQuestionBody: React.FC<QuestionBodyProps> = ({
   question,
   control,
-  setValue,
 }) => {
   const { options } = question as FormQuestion<"Checkbox">;
   const fieldState = control.getFieldState(question.id);

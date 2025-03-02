@@ -9,7 +9,7 @@ import { throttle } from "@/shared/lib";
 import TiptapProvider from "./tiptap-provider";
 import { Toolbar } from "./toolbar";
 import { UseTiptapEditorOptions } from "../../lib/hooks/useTipTapEditor";
-import { Heading, NoNewLine } from "../../config/editorExtensions";
+import { NoNewLine } from "../../config/editorExtensions";
 
 export type TiptapEditorRef = {
   getInstance: () => Editor | null;
@@ -40,18 +40,12 @@ interface Props {
 export const TiptapEditor = forwardRef<TiptapEditorRef, Props>(
   function TiptapEditor(props, ref) {
     const {
-      ssr = false,
       output = "html",
       readonly = false,
       disabled = false,
       initialContent,
       placeholder,
       oneLine,
-      hideToolbar = true,
-      hideStatusBar = false,
-      hideBubbleMenu = true,
-      contentMinHeight = 200,
-      contentMaxHeight,
       onContentChange,
     } = props;
 

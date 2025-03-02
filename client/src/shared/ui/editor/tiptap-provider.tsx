@@ -37,7 +37,6 @@ type TiptapProviderProps = {
 export const TiptapProvider = ({
   children,
   editorOptions,
-  editorProps,
   slotBefore,
   slotAfter,
 }: TiptapProviderProps) => {

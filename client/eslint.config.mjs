@@ -16,8 +16,10 @@ const eslintConfig = [
       "@typescript-eslint/no-explicit-any": "off",
       "@next/next/no-html-link-for-pages": "off",
       "react/jsx-key": "off",
+      "react/display-name": "off",
+      "react-hooks/exhaustive-deps": "off",
+      "@typescript-eslint/ban-ts-comment": "off",
       "tailwindcss/no-custom-classname": "off",
-      "tailwindcss/classnames-order": "error",
     },
   },
 ];

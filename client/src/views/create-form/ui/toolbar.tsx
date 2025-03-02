@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { Link2, UserPlus, Eye } from "lucide-react";
+import { Eye } from "lucide-react";
 import { Button } from "@/shared/ui";
 
 export function Toolbar() {
