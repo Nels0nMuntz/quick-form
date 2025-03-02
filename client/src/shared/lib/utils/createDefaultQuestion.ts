@@ -19,7 +19,7 @@ export const createDefaultQuestion = ({ type, id, title }: Options) => {
     title ||
     buildJsonContent({
       type: "heading",
-      level: 2,
+      level: 3,
       text: createDefaultQuestionTitleText(),
     });
   switch (type) {

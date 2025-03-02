@@ -6,7 +6,18 @@ import StarterKit from "@tiptap/starter-kit";
 
 export const generateHTML = (json: EditorJSONContent) => {
   return tiptapGenerateHTML(json, [
-    StarterKit,
+    StarterKit.configure({
+      paragraph: {
+        HTMLAttributes: {
+          class: "quick-form-paragraph",
+        },
+      },
+      heading: {
+        HTMLAttributes: {
+          class: "quick-form-heading",
+        }
+      }
+    }),
     Underline,
     Link,
   ]);

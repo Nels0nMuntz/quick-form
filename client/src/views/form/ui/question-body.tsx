@@ -37,13 +37,8 @@ export const ShortTextQuestionBody: React.FC<QuestionBodyProps> = ({
             message: "Field is required",
           },
           maxLength: {
-            value: 20,
-            message: "Field is must have not more then 20 charecters",
-          },
-          pattern: {
-            value: /^[A-Za-z1-9\s'!?@#$&*"/():;]+$/,
-            message:
-              "Answer must contain only letters, numbers and some symbols",
+            value: 100,
+            message: "Field is must have not more then 100 charecters",
           },
         }}
         render={({ field }) => (
@@ -73,12 +68,8 @@ export const LongTextQuestionBody: React.FC<QuestionBodyProps> = ({
           message: "Field is required",
         },
         maxLength: {
-          value: 200,
-          message: "Field is must have not more then 200 charecters",
-        },
-        pattern: {
-          value: /^[A-Za-z1-9\s'!?@#$&*"/():;]+$/,
-          message: "Answer must contain only letters and some symbols",
+          value: 600,
+          message: "Field is must have not more then 600 charecters",
         },
       }}
       render={({ field }) => (
